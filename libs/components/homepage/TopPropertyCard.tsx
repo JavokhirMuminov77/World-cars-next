@@ -9,18 +9,23 @@ import { REACT_APP_API_URL } from '../../config';
 import { useRouter } from 'next/router';
 import { useReactiveVar } from '@apollo/client';
 import { userVar } from '../../../apollo/store';
+import { Message } from '../../enums/common.enum';
+import { sweetMixinErrorAlert, sweetTopSmallSuccessAlert } from '../../sweetAlert';
+import { T } from '../../types/common';
 
 interface TopPropertyCardProps {
 	property: Property;
+	likePropertyHandler: any;
 }
 
 const TopPropertyCard = (props: TopPropertyCardProps) => {
-	const { property } = props;
+	const { property,likePropertyHandler } = props;
 	const device = useDeviceDetect();
 	const router = useRouter();
 	const user = useReactiveVar(userVar);
 
 	/** HANDLERS **/
+
 
 	if (device === 'mobile') {
 		return (
@@ -57,11 +62,11 @@ const TopPropertyCard = (props: TopPropertyCardProps) => {
 							{property.propertyBarter ? 'Barter' : ''}
 						</p>
 						<div className="view-like-box">
-							<IconButton color={'default'}>
+							<IconButton color={'default'} >
 								<RemoveRedEyeIcon />
 							</IconButton>
 							<Typography className="view-cnt">{property?.propertyViews}</Typography>
-							<IconButton color={'default'}>
+							<IconButton color={'default'} onClick={() => likePropertyHandler(user, property?._id)}>
 								{property?.meLiked && property?.meLiked[0]?.myFavorite ? (
 									<FavoriteIcon style={{ color: 'red' }} />
 								) : (
@@ -109,11 +114,11 @@ const TopPropertyCard = (props: TopPropertyCardProps) => {
 							{property.propertyBarter ? 'Barter' : ''}
 						</p>
 						<div className="view-like-box">
-							<IconButton color={'default'}>
+							<IconButton color={'default'}  >
 								<RemoveRedEyeIcon />
 							</IconButton>
 							<Typography className="view-cnt">{property?.propertyViews}</Typography>
-							<IconButton color={'default'}>
+							<IconButton color={'default'} onClick={() => likePropertyHandler(user, property?._id)}>
 								{property?.meLiked && property?.meLiked[0]?.myFavorite ? (
 									<FavoriteIcon style={{ color: 'red' }} />
 								) : (
@@ -130,3 +135,9 @@ const TopPropertyCard = (props: TopPropertyCardProps) => {
 };
 
 export default TopPropertyCard;
+function likeTargetProperty(arg0: { variables: { input: string; }; }) {
+	throw new Error('Function not implemented.');
+}
+function getPropertiesRefetch(arg0: { input: any; }) {
+	throw new Error('Function not implemented.');
+}
