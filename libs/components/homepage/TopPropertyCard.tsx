@@ -43,7 +43,7 @@ const TopPropertyCard = (props: TopPropertyCardProps) => {
 					<div className={'options'}>
 						<div>
 							<img src="/img/icons/bed.svg" alt="" />
-							<span>{property?.propertyBeds} bed</span>
+							<span>{property?.propertyBeds} bed</span>    
 						</div>
 						<div>
 							<img src="/img/icons/room.svg" alt="" />
