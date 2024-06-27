@@ -11,7 +11,7 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import WestIcon from '@mui/icons-material/West';
 import EastIcon from '@mui/icons-material/East';
-import { useReactiveVar } from '@apollo/client';
+import { useQuery, useReactiveVar } from '@apollo/client';
 import { useRouter } from 'next/router';
 import { Property } from '../../libs/types/property/property';
 import moment from 'moment';
@@ -27,6 +27,8 @@ import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import 'swiper/css';
 import 'swiper/css/pagination';
+import { T } from '../../libs/types/common';
+import { GET_PROPERTY } from '../../apollo/user/query';
 
 SwiperCore.use([Autoplay, Navigation, Pagination]);
 
@@ -54,6 +56,21 @@ const PropertyDetail: NextPage = ({ initialComment, ...props }: any) => {
 	});
 
 	/** APOLLO REQUESTS **/
+	const {
+		loading: getPropertyLowding,
+		data: getPropertyData,
+		error: getPropertyError,
+		refetch: getProperTyRefetch,
+	} = useQuery (GET_PROPERTY, {
+			fetchPolicy: 'cache-and-network',
+			skip: !propertyId,
+			notifyOnNetworkStatusChange: true,
+			onCompleted: (data: T) => {
+				if (data?.getProperty) setProperty(data?.getProperty);
+				if (data?.getProperty) setSlideImage (data?.getProperty?.propertyImages[0]);
+			},
+		});
+
 
 	/** LIFECYCLES **/
 	useEffect(() => {
