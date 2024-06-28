@@ -19,6 +19,7 @@ export interface PropertyInput {
 }
 
 interface PISearch {
+	commentRefId: any;
 	memberId?: string;
 	locationList?: PropertyLocation[];
 	typeList?: PropertyType[];
