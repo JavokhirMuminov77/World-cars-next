@@ -64,13 +64,13 @@ const AgentDetail: NextPage = ({ initialInput, initialComment, ...props }: any) 
 		skip: !agentId,
 		onCompleted: (data: T) => {
 			setAgent(data?.getMember);
-		  setSearchFilter({
-			...searchFilter,
-			search: {
-				memberId: data?.getMember?._id,
-				commentRefId: undefined
-			},
-		});
+			setSearchFilter({
+				...searchFilter,
+				search: {
+					memberId: data?.getMember?._id,
+					commentRefId: undefined
+				},
+			});
 		setCommentInquiry({
 			...commentInquiry,
 			search: {
@@ -128,8 +128,18 @@ const AgentDetail: NextPage = ({ initialInput, initialComment, ...props }: any) 
 		if (router.query.agentId) setMbId(router.query.agentId as string);
 	}, [router]);
 
-	useEffect(() => {}, [searchFilter]);
-	useEffect(() => {}, [commentInquiry]);
+
+	useEffect(() => {
+		if (searchFilter.search.memberId) {
+			getPropertiesRefetch({ variables: { input: searchFilter}}).then();
+		}
+	}, [searchFilter]);
+
+	useEffect(() => {
+		if (commentInquiry.search.commentRefId) {
+			gettCommentsRefetch({ variables: { input: commentInquiry}}).then();
+		}
+	}, [commentInquiry]);
 
 	/** HANDLERS **/
 	const redirectToMemberPageHandler = async (memberId: string) => {
@@ -211,7 +221,7 @@ const AgentDetail: NextPage = ({ initialInput, initialComment, ...props }: any) 
 							{agentProperties.map((property: Property) => {
 								return (
 									<div className={'wrap-main'} key={property?._id}>
-										<PropertyBigCard property={property} key={property?._id} />
+										<PropertyBigCard property={property} likePropertyHandler={likePropertyHandler} key={property?._id} />
 									</div>
 								);
 							})}

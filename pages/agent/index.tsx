@@ -51,7 +51,7 @@ const AgentList: NextPage = ({ initialInput, ...props }: any) => {
 		variables: {input: searchFilter},
 		notifyOnNetworkStatusChange: true,
 		onCompleted: (data: T) => {
-			setProperties(data?.getAgents?.list);
+			setAgents(data?.getAgents?.list);
 			setTotal(data?.getAgents?.metaCounter[0]?.total);
 
 		}

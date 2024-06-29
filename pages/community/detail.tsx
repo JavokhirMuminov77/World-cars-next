@@ -74,14 +74,14 @@ const CommunityDetail: NextPage = ({ initialInput, ...props }: T) => {
 		data: boardArticleData,
 		error: getBoardArticleError,
 		refetch: boardArticleRefetch,
-	} =useQuery(GET_BOARD_ARTICLE, {
+	} = useQuery(GET_BOARD_ARTICLE, {
 		fetchPolicy: 'network-only',
 		variables: {
 			input: articleId,
 		},
 		notifyOnNetworkStatusChange: true,
 		onCompleted(data: any) {
-			if (data?.getBoardArticles?.memberImage) {
+			if (data?.getBoardArticles?.memberData?.memberImage) {
 				setMemberImage(`${process.env.REACT_APP_API_URL}/${data?.getBoardArticles?.memberData?.memberImage}`);
 			}
 		},
@@ -361,7 +361,7 @@ const CommunityDetail: NextPage = ({ initialInput, ...props }: T) => {
 													<ChatBubbleOutlineRoundedIcon />
 												)}
 
-												<Typography className="text">{boardArticle?.articleComments}</Typography>
+												<Typography className="text">{total}</Typography>
 											</Stack>
 										</Stack>
 									</Stack>
