@@ -29,9 +29,8 @@ const tokenRefreshLink = new TokenRefreshLink({
 	},
 });
 
-
-//Custom WebSocket client
-class LogginWebSocket {
+// Custom WebSocket client
+class LoggingWebSocket {
 	private socket: WebSocket;
 
 	constructor(url: string) {
@@ -39,15 +38,15 @@ class LogginWebSocket {
 		socketVar(this.socket);
 
 		this.socket.onopen = () => {
-			console.log("WebSocket connection!");
+			console.log('WebSocket connection!');
 		};
 
 		this.socket.onmessage = (msg) => {
-			console.log("WebSocketMessage:", msg.data);
+			console.log('WebSocket message:', msg.data);
 		};
 
-		this.socket.onerror= (error) => {
-			console.log("WebSocket error:", error);
+		this.socket.onerror = (error) => {
+			console.log('WebSocket, error:', error);
 		};
 	}
 
@@ -88,7 +87,7 @@ function createIsomorphicLink() {
 					return { headers: getHeaders() };
 				},
 			},
-			webSocketImpl: LogginWebSocket
+			webSocketImpl: LoggingWebSocket,
 		});
 
 		const errorLink = onError(({ graphQLErrors, networkError, response }) => {
@@ -96,7 +95,7 @@ function createIsomorphicLink() {
 				graphQLErrors.map(({ message, locations, path, extensions }) => {
 					console.log(`[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`);
 					if (!message.includes('input')) sweetErrorAlert(message);
-			});
+				});
 			}
 			if (networkError) console.log(`[Network error]: ${networkError}`);
 			// @ts-ignore

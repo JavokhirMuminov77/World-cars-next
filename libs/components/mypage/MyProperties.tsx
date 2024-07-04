@@ -24,7 +24,6 @@ const MyProperties: NextPage = ({ initialInput, ...props }: any) => {
 
 	/** APOLLO REQUESTS **/
 	const [updateProperty] = useMutation(UPDATE_PROPERTY);
-
 	const {
 		loading: getAgentPropertiesLoading,
 		data: getAgentPropertiesData,
@@ -32,49 +31,43 @@ const MyProperties: NextPage = ({ initialInput, ...props }: any) => {
 		refetch: getAgentPropertiesRefetch,
 	} = useQuery(GET_AGENT_PROPERTIES, {
 		fetchPolicy: 'network-only',
-		variables: { input: searchFilter},
+		variables: { input: searchFilter },
 		notifyOnNetworkStatusChange: true,
 		onCompleted: (data: T) => {
 			setAgentProperties(data?.getAgentProperties?.list);
 			setTotal(data?.getAgentProperties?.metaCounter[0]?.total ?? 0);
 		},
 	});
-
 	/** HANDLERS **/
 	const paginationHandler = (e: T, value: number) => {
 		setSearchFilter({ ...searchFilter, page: value });
 	};
 
+	const changeStatusHandler = (value: PropertyStatus) => {
+		setSearchFilter({ ...searchFilter, search: { propertyStatus: value } });
+	};
 
 	const deletePropertyHandler = async (id: string) => {
 		try {
-			if (await sweetConfirmAlert('are you sure to delete this property?')) {
+			if (await sweetConfirmAlert('Are you sure to delete this property?')) {
 				await updateProperty({
 					variables: {
 						input: {
 							_id: id,
-							propertyStatus: 'DELETE',
-						}
+							PropertyStatus: 'DELETE',
+						},
 					},
 				});
-
-				await getAgentPropertiesRefetch({ input: searchFilter});
+				await getAgentPropertiesRefetch({ input: searchFilter });
 			}
 		} catch (err: any) {
 			await sweetErrorHandling(err);
 		}
 	};
 
-
-	const changeStatusHandler = (value: PropertyStatus) => {
-		setSearchFilter({ ...searchFilter, search: { propertyStatus: value } });
-	};
-
-
-
 	const updatePropertyHandler = async (status: string, id: string) => {
 		try {
-			if (await sweetConfirmAlert(`are you sure change to ${status} status`)) {
+			if (await sweetConfirmAlert(`Are you sure to change ${status} status?`)) {
 				await updateProperty({
 					variables: {
 						input: {
@@ -83,7 +76,7 @@ const MyProperties: NextPage = ({ initialInput, ...props }: any) => {
 						},
 					},
 				});
-				await getAgentPropertiesRefetch({ input: searchFilter});
+				await getAgentPropertiesRefetch({ input: searchFilter });
 			}
 		} catch (err: any) {
 			await sweetErrorHandling(err);
@@ -126,8 +119,9 @@ const MyProperties: NextPage = ({ initialInput, ...props }: any) => {
 							<Typography className="title-text">Date Published</Typography>
 							<Typography className="title-text">Status</Typography>
 							<Typography className="title-text">View</Typography>
-							{searchFilter.search.propertyStatus === 'ACTIVE' && <Typography className="title-text">Action</Typography>}
-							
+							{searchFilter.search.propertyStatus === 'ACTIVE' && (
+								<Typography className="title-text">Action</Typography>
+							)}
 						</Stack>
 
 						{agentProperties?.length === 0 ? (

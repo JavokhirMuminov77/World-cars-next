@@ -7,10 +7,10 @@ import { useMutation, useQuery, useReactiveVar } from '@apollo/client';
 import { userVar } from '../../../apollo/store';
 import { T } from '../../types/common';
 import { BoardArticle } from '../../types/board-article/board-article';
-import { LIKE_TARGET_BOARD_ARTICLE } from '../../../apollo/user/mutation';
-import { GET_BOARD_ARTICLE, GET_BOARD_ARTICLES, GET_FAVORITES } from '../../../apollo/user/query';
-import { sweetMixinErrorAlert, sweetTopSmallSuccessAlert } from '../../sweetAlert';
+import { LIKE_TARGET_PROPERTY } from '../../../apollo/user/mutation';
+import { GET_BOARD_ARTICLES } from '../../../apollo/user/query';
 import { Message } from '../../enums/common.enum';
+import { sweetMixinErrorAlert, sweetTopSmallSuccessAlert } from '../../sweetAlert';
 
 const MyArticles: NextPage = ({ initialInput, ...props }: T) => {
 	const device = useDeviceDetect();
@@ -23,23 +23,20 @@ const MyArticles: NextPage = ({ initialInput, ...props }: T) => {
 	const [totalCount, setTotalCount] = useState<number>(0);
 
 	/** APOLLO REQUESTS **/
-	const [likeTargetBoardArticle] = useMutation(LIKE_TARGET_BOARD_ARTICLE);
-
+	const [likeTargetProperty] = useMutation(LIKE_TARGET_PROPERTY);
 	const {
 		loading: boardArticlesLoading,
 		data: boardArticlesData,
-		error: boardArticlesError,
+		error: getboardArticlesError,
 		refetch: boardArticlesRefetch,
 	} = useQuery(GET_BOARD_ARTICLES, {
 		fetchPolicy: 'network-only',
-		variables: {
-			input: searchCommunity,
-		},
+		variables: { input: searchCommunity },
 		notifyOnNetworkStatusChange: true,
-		onCompleted(data: T) {
-			setBoardArticles(data?.getBordArticles?.list);
+		onCompleted: (data: T) => {
+			setBoardArticles(data?.getBoardArticles?.list);
 			setTotalCount(data?.getBoardArticles?.metaCounter[0]?.total);
-		}
+		},
 	});
 
 	/** HANDLERS **/
@@ -47,27 +44,23 @@ const MyArticles: NextPage = ({ initialInput, ...props }: T) => {
 		setSearchCommunity({ ...searchCommunity, page: value });
 	};
 
-
-	const likeBoArticleHandler = async (e: any, user: any, id: string) => {
+	const likePropertyHandler = async (user: T, id: string) => {
 		try {
-			e.stopPropagation();
 			if (!id) return;
-			if (!user?._id) throw new Error(Message.error2);
+			if (!user._id) throw new Error(Message.NOT_AUTHENTICATED);
 
-
-			await likeTargetBoardArticle({
-				variables: {
-					input: id,
-				},
+			await likeTargetProperty({
+				variables: { input: id },
 			});
-			await boardArticlesRefetch({ input: searchCommunity});
 
-			await sweetTopSmallSuccessAlert('Success!', 750);
+			await boardArticlesRefetch({ input: searchCommunity });
+
+			await sweetTopSmallSuccessAlert('Success', 800);
 		} catch (err: any) {
-			console.log('ERROR, likeBoArticleHandler', err.message);
+			console.log('Error, likePropertyHandler', err.message);
 			sweetMixinErrorAlert(err.message).then();
 		}
-	}
+	};
 
 	if (device === 'mobile') {
 		return <>ARTICLE PAGE MOBILE</>;
@@ -83,8 +76,14 @@ const MyArticles: NextPage = ({ initialInput, ...props }: T) => {
 				<Stack className="article-list-box">
 					{boardArticles?.length > 0 ? (
 						boardArticles?.map((boardArticle: BoardArticle) => {
-							return <CommunityCard boardArticle={boardArticle} key={boardArticle?._id} size={'small'}
-							likeArticleHandler={likeBoArticleHandler}/>;
+							return (
+								<CommunityCard
+									likeArticleHandler={likePropertyHandler}
+									boardArticle={boardArticle}
+									key={boardArticle?._id}
+									size={'small'}
+								/>
+							);
 						})
 					) : (
 						<div className={'no-data'}>

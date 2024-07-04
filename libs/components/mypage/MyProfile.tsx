@@ -9,7 +9,6 @@ import { useMutation, useReactiveVar } from '@apollo/client';
 import { userVar } from '../../../apollo/store';
 import { MemberUpdate } from '../../types/member/member.update';
 import { UPDATE_MEMBER } from '../../../apollo/user/mutation';
-import { Message } from '@mui/icons-material';
 import { sweetErrorHandling, sweetMixinSuccessAlert } from '../../sweetAlert';
 
 const MyProfile: NextPage = ({ initialValues, ...props }: any) => {
@@ -19,6 +18,7 @@ const MyProfile: NextPage = ({ initialValues, ...props }: any) => {
 	const [updateData, setUpdateData] = useState<MemberUpdate>(initialValues);
 
 	/** APOLLO REQUESTS **/
+
 	const [updateMember] = useMutation(UPDATE_MEMBER);
 
 	/** LIFECYCLES **/
@@ -82,7 +82,7 @@ const MyProfile: NextPage = ({ initialValues, ...props }: any) => {
 		try {
 			if (!user._id) throw new Error(Messages.error2);
 			updateData._id = user._id;
-			const result = await updateMember( {
+			const result = await updateMember({
 				variables: {
 					input: updateData,
 				},
@@ -90,10 +90,10 @@ const MyProfile: NextPage = ({ initialValues, ...props }: any) => {
 
 			//@ts-ignore
 			const jwtToken = result.data.updateMember?.accessToken;
-			await updateStorage({ jwtToken});
+			await updateStorage({ jwtToken });
 			updateUserInfo(result.data.updateMember?.accessToken);
-			await sweetMixinSuccessAlert('information updated successfully.');
-		}catch (err: any) {
+			await sweetMixinSuccessAlert('Information updated successfully');
+		} catch (err: any) {
 			sweetErrorHandling(err).then();
 		}
 	}, [updateData]);

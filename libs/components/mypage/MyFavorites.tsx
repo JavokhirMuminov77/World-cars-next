@@ -8,9 +8,9 @@ import { T } from '../../types/common';
 import { LIKE_TARGET_PROPERTY } from '../../../apollo/user/mutation';
 import { useMutation, useQuery } from '@apollo/client';
 import { GET_FAVORITES } from '../../../apollo/user/query';
+import { sweetMixinErrorAlert, sweetTopSmallSuccessAlert } from '../../sweetAlert';
 import { Message } from '../../enums/common.enum';
 import { Messages } from '../../config';
-import { sweetMixinErrorAlert } from '../../sweetAlert';
 
 const MyFavorites: NextPage = () => {
 	const device = useDeviceDetect();
@@ -19,8 +19,7 @@ const MyFavorites: NextPage = () => {
 	const [searchFavorites, setSearchFavorites] = useState<T>({ page: 1, limit: 6 });
 
 	/** APOLLO REQUESTS **/
- 	const [likeTargetProperty] = useMutation(LIKE_TARGET_PROPERTY);
-
+	const [likeTargetProperty] = useMutation(LIKE_TARGET_PROPERTY);
 	const {
 		loading: getFavoritesLoading,
 		data: getFavoritesData,
@@ -28,14 +27,12 @@ const MyFavorites: NextPage = () => {
 		refetch: getFavoritesRefetch,
 	} = useQuery(GET_FAVORITES, {
 		fetchPolicy: 'network-only',
-		variables: {
-			input: searchFavorites,
-		},
+		variables: { input: searchFavorites },
 		notifyOnNetworkStatusChange: true,
-		onCompleted(data: T) {
+		onCompleted: (data: T) => {
 			setMyFavorites(data.getFavorites?.list);
 			setTotal(data.getFavorites?.metaCounter?.[0]?.total || 0);
-		}
+		},
 	});
 
 	/** HANDLERS **/
@@ -43,22 +40,23 @@ const MyFavorites: NextPage = () => {
 		setSearchFavorites({ ...searchFavorites, page: value });
 	};
 
-	const likePropertyHandler = async (user: any, id: string) => {
+	const likePropertyHandler = async (user: T, id: string) => {
 		try {
 			if (!id) return;
 			if (!user._id) throw new Error(Messages.error2);
 
 			await likeTargetProperty({
-				variables: {
-					input: id,
-				},
+				variables: { input: id },
 			});
-			await getFavoritesRefetch({ input: searchFavorites});
+
+			await getFavoritesRefetch({ input: searchFavorites });
+
+			await sweetTopSmallSuccessAlert('success', 800);
 		} catch (err: any) {
-			console.log ('ERROR, likePropertyHandler:', err.message);
+			console.log('Error, likePropertyHandler', err.message);
 			sweetMixinErrorAlert(err.message).then();
 		}
-	}
+	};
 
 	if (device === 'mobile') {
 		return <div>NESTAR MY FAVORITES MOBILE</div>;
@@ -74,7 +72,7 @@ const MyFavorites: NextPage = () => {
 				<Stack className="favorites-list-box">
 					{myFavorites?.length ? (
 						myFavorites?.map((property: Property) => {
-							return <PropertyCard property={property} myFavorites={true} />;
+							return <PropertyCard property={property} myFavorites={true} likePropertyHandler={likePropertyHandler} />;
 						})
 					) : (
 						<div className={'no-data'}>
