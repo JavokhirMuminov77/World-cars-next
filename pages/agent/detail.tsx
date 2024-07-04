@@ -19,10 +19,9 @@ import { CommentGroup } from '../../libs/enums/comment.enum';
 import { Messages, REACT_APP_API_URL } from '../../libs/config';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { CREATE_COMMENT, LIKE_TARGET_PROPERTY } from '../../apollo/user/mutation';
-import { GET_MEMBER, GET_PROPERTIES } from '../../apollo/user/query';
+import { GET_COMMENTS, GET_MEMBER, GET_PROPERTIES } from '../../apollo/user/query';
 import { T } from '../../libs/types/common';
-import { GET_COMMENTS } from '../../apollo/admin/query';
-import { Message } from '@mui/icons-material';
+import { Message } from '../../libs/enums/common.enum';
 
 export const getStaticProps = async ({ locale }: any) => ({
 	props: {
@@ -34,7 +33,7 @@ const AgentDetail: NextPage = ({ initialInput, initialComment, ...props }: any) 
 	const device = useDeviceDetect();
 	const router = useRouter();
 	const user = useReactiveVar(userVar);
-	const [agentId, setMbId] = useState<string | null>(null);
+	const [agentId, setAgentId] = useState<string | null>(null);
 	const [agent, setAgent] = useState<Member | null>(null);
 	const [searchFilter, setSearchFilter] = useState<PropertiesInquiry>(initialInput);
 	const [agentProperties, setAgentProperties] = useState<Property[]>([]);
@@ -49,10 +48,8 @@ const AgentDetail: NextPage = ({ initialInput, initialComment, ...props }: any) 
 	});
 
 	/** APOLLO REQUESTS **/
-
 	const [createComment] = useMutation(CREATE_COMMENT);
 	const [likeTargetProperty] = useMutation(LIKE_TARGET_PROPERTY);
-
 	const {
 		loading: getMemberLoading,
 		data: getMemberData,
@@ -60,7 +57,7 @@ const AgentDetail: NextPage = ({ initialInput, initialComment, ...props }: any) 
 		refetch: getMemberRefetch,
 	} = useQuery(GET_MEMBER, {
 		fetchPolicy: 'network-only',
-		variables: { input: agentId},
+		variables: { input: agentId },
 		skip: !agentId,
 		onCompleted: (data: T) => {
 			setAgent(data?.getMember);
@@ -68,23 +65,21 @@ const AgentDetail: NextPage = ({ initialInput, initialComment, ...props }: any) 
 				...searchFilter,
 				search: {
 					memberId: data?.getMember?._id,
-					commentRefId: undefined
+					
 				},
 			});
-		setCommentInquiry({
-			...commentInquiry,
-			search: {
+			setCommentInquiry({
+				...commentInquiry,
+				search: {
+					commentRefId: data?.getMember?._id,
+				},
+			});
+			setInsertCommentData({
+				...insertCommentData,
 				commentRefId: data?.getMember?._id,
-			},
-		});
-		setInsertCommentData({
-			...insertCommentData,
-			commentRefId: data?.getMember?._id,
-		})
+			});
 		},
-
 	});
-
 	const {
 		loading: getPropertiesLoading,
 		data: getPropertiesData,
@@ -92,7 +87,7 @@ const AgentDetail: NextPage = ({ initialInput, initialComment, ...props }: any) 
 		refetch: getPropertiesRefetch,
 	} = useQuery(GET_PROPERTIES, {
 		fetchPolicy: 'network-only',
-		variables: { input: searchFilter},
+		variables: { input: searchFilter },
 		skip: !searchFilter.search.memberId,
 		notifyOnNetworkStatusChange: true,
 		onCompleted: (data: T) => {
@@ -103,12 +98,12 @@ const AgentDetail: NextPage = ({ initialInput, initialComment, ...props }: any) 
 
 	const {
 		loading: getCommentsLoading,
-		data: gettCommentsData,
-		error: gettCommentsError,
-		refetch: gettCommentsRefetch,
+		data: getCommentsData,
+		error: getCommentsError,
+		refetch: getCommentsRefetch,
 	} = useQuery(GET_COMMENTS, {
 		fetchPolicy: 'network-only',
-		variables: { input: commentInquiry},
+		variables: { input: commentInquiry },
 		skip: !commentInquiry.search.commentRefId,
 		notifyOnNetworkStatusChange: true,
 		onCompleted: (data: T) => {
@@ -116,28 +111,19 @@ const AgentDetail: NextPage = ({ initialInput, initialComment, ...props }: any) 
 			setCommentTotal(data?.getComments?.metaCounter[0]?.total ?? 0);
 		},
 	});
-
-
-
-
-
-
-
 	/** LIFECYCLES **/
 	useEffect(() => {
-		if (router.query.agentId) setMbId(router.query.agentId as string);
+		if (router.query.agentId) setAgentId(router.query.agentId as string);
 	}, [router]);
-
 
 	useEffect(() => {
 		if (searchFilter.search.memberId) {
-			getPropertiesRefetch({ variables: { input: searchFilter}}).then();
+			getPropertiesRefetch({ variables: { input: searchFilter } }).then();
 		}
 	}, [searchFilter]);
-
 	useEffect(() => {
 		if (commentInquiry.search.commentRefId) {
-			gettCommentsRefetch({ variables: { input: commentInquiry}}).then();
+			getCommentsRefetch({ variables: { input: commentInquiry } }).then();
 		}
 	}, [commentInquiry]);
 
@@ -163,39 +149,38 @@ const AgentDetail: NextPage = ({ initialInput, initialComment, ...props }: any) 
 
 	const createCommentHandler = async () => {
 		try {
-			if (!user._id) throw  new Error(Messages.error2);
-			if (user._id === agentId) throw new Error('Cannot write a review for yourself');
+			console.log('pressed');
+			if (!user._id) throw new Error(Messages.error2);
+			if (user._id === agentId) throw new Error('Cannot write review for yourself');
 
 			await createComment({
 				variables: {
 					input: insertCommentData,
 				},
 			});
-			setInsertCommentData({ ...insertCommentData, commentContent: ''});
-
-			await gettCommentsRefetch({ input: commentInquiry});
+			setInsertCommentData({ ...insertCommentData, commentContent: '' });
+			await getCommentsRefetch({ input: commentInquiry });
 		} catch (err: any) {
 			sweetErrorHandling(err).then();
 		}
 	};
-
 	const likePropertyHandler = async (user: any, id: string) => {
 		try {
 			if (!id) return;
-			if (!user._id) throw new Error(Messages.error2);
+			if (!user._id) throw new Error(Message.NOT_AUTHENTICATED);
 
 			await likeTargetProperty({
-				variables: {
-					input: id,
-				},
+				variables: { input: id },
 			});
-			await getPropertiesRefetch({ input: searchFilter});
+
+			await getPropertiesRefetch({ input: searchFilter });
+
 			await sweetTopSmallSuccessAlert('success', 800);
 		} catch (err: any) {
-			console.log('ERROR, likePropertyHandler:', err.message);
+			console.log('Error, likePropertyHandler', err.message);
 			sweetMixinErrorAlert(err.message).then();
 		}
-	}
+	};
 
 	if (device === 'mobile') {
 		return <div>AGENT DETAIL PAGE MOBILE</div>;
@@ -221,7 +206,11 @@ const AgentDetail: NextPage = ({ initialInput, initialComment, ...props }: any) 
 							{agentProperties.map((property: Property) => {
 								return (
 									<div className={'wrap-main'} key={property?._id}>
-										<PropertyBigCard property={property} likePropertyHandler={likePropertyHandler} key={property?._id} />
+										<PropertyBigCard
+											property={property}
+											key={property?._id}
+											likePropertyHandler={likePropertyHandler}
+										/>
 									</div>
 								);
 							})}
