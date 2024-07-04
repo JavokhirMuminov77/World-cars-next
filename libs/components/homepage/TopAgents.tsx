@@ -8,8 +8,8 @@ import { Autoplay, Navigation, Pagination } from 'swiper';
 import TopAgentCard from './TopAgentCard';
 import { Member } from '../../types/member/member';
 import { AgentsInquiry } from '../../types/member/member.input';
-import { useQuery } from '@apollo/client';
 import { GET_AGENTS } from '../../../apollo/user/query';
+import { useQuery } from '@apollo/client';
 import { T } from '../../types/common';
 
 interface TopAgentsProps {
@@ -30,12 +30,12 @@ const TopAgents = (props: TopAgentsProps) => {
 		refetch: getAgentsRefetch,
 	} = useQuery(GET_AGENTS, {
 		fetchPolicy: 'cache-and-network',
-		variables: { input: initialInput},
+		variables: { input: initialInput },
 		notifyOnNetworkStatusChange: true,
 		onCompleted: (data: T) => {
 			setTopAgents(data?.getAgents?.list);
-		}
-	})
+		},
+	});
 	/** HANDLERS **/
 
 	if (device === 'mobile') {

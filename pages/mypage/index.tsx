@@ -126,7 +126,7 @@ const MyPage: NextPage = () => {
 										<MemberFollowers
 											subscribeHandler={subscribeHandler}
 											unsubscribeHandler={unsubscribeHandler}
-																	/* likeMemberHandler={likeMemberHandler}*/
+											likeMemberHandler={likeMemberHandler}
 											redirectToMemberPageHandler={redirectToMemberPageHandler}
 										/>
 									)}
@@ -134,7 +134,7 @@ const MyPage: NextPage = () => {
 										<MemberFollowings
 											subscribeHandler={subscribeHandler}
 											unsubscribeHandler={unsubscribeHandler}
-											/* likeMemberHandler={likeMemberHandler}*/
+											likeMemberHandler={likeMemberHandler}
 											redirectToMemberPageHandler={redirectToMemberPageHandler}
 										/>
 									)}

@@ -155,16 +155,16 @@ const CommunityArticleList = (props: CommunityArticleListProps) => {
 										<Box component={'div'}>
 											{article.articleTitle}
 											{article.articleStatus === BoardArticleStatus.ACTIVE && (
-											<Link
-												href={`/community/detail?articleCategory=${article.articleCategory}&id=${article._id}`}
-												className={'img_box'}
-											>
-												<IconButton className="btn_window">
-													<Tooltip title={'Open window'}>
-														<OpenInBrowserRoundedIcon />
-													</Tooltip>
-												</IconButton>
-											</Link>
+												<Link
+													href={`/community/detail?articleCategory=${article.articleCategory}&id=${article._id}`}
+													className={'img_box'}
+												>
+													<IconButton className="btn_window">
+														<Tooltip title={'Open window'}>
+															<OpenInBrowserRoundedIcon />
+														</Tooltip>
+													</IconButton>
+												</Link>
 											)}
 										</Box>
 									</TableCell>

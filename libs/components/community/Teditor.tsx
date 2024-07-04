@@ -10,8 +10,9 @@ import { T } from '../../types/common';
 import '@toast-ui/editor/dist/toastui-editor.css';
 import { useMutation } from '@apollo/client';
 import { CREATE_BOARD_ARTICLE } from '../../../apollo/user/mutation';
-import { sweetErrorHandling, sweetTopSuccessAlert } from '../../sweetAlert';
+import { typeFromAST } from 'graphql';
 import { Message } from '../../enums/common.enum';
+import { sweetErrorHandling, sweetTopSuccessAlert } from '../../sweetAlert';
 
 const TuiEditor = () => {
 	const editorRef = useRef<Editor>(null),
@@ -20,7 +21,7 @@ const TuiEditor = () => {
 	const [articleCategory, setArticleCategory] = useState<BoardArticleCategory>(BoardArticleCategory.FREE);
 
 	/** APOLLO REQUESTS **/
-	const [createboardArticle] = useMutation(CREATE_BOARD_ARTICLE);
+	const [createBoardArticle] = useMutation(CREATE_BOARD_ARTICLE);
 
 	const memoizedValues = useMemo(() => {
 		const articleTitle = '',
@@ -91,20 +92,22 @@ const TuiEditor = () => {
 				throw new Error(Message.INSERT_ALL_INPUTS);
 			}
 
-			await createboardArticle({
+			await createBoardArticle({
 				variables: {
-					input: { ...memoizedValues, articleCategory},
+					input: {
+						...memoizedValues,
+						articleCategory,
+					},
 				},
 			});
-
-			await sweetTopSuccessAlert('Article is created successfully', 700);
+			await sweetTopSuccessAlert('Article is created succeefully', 700);
 			await router.push({
 				pathname: '/mypage',
 				query: {
-					category: 'myArticles',
+					categry: 'myArticles',
 				},
 			});
-		} catch (err:any) {
+		} catch (err: any) {
 			console.log(err);
 			sweetErrorHandling(new Error(Message.INSERT_ALL_INPUTS)).then();
 		}

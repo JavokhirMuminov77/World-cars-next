@@ -9,9 +9,8 @@ import { REACT_APP_API_URL } from '../../config';
 import { useRouter } from 'next/router';
 import { useReactiveVar } from '@apollo/client';
 import { userVar } from '../../../apollo/store';
-import { Message } from '../../enums/common.enum';
-import { sweetMixinErrorAlert, sweetTopSmallSuccessAlert } from '../../sweetAlert';
 import { T } from '../../types/common';
+import { sweetMixinErrorAlert } from '../../sweetAlert';
 
 interface TopPropertyCardProps {
 	property: Property;
@@ -19,17 +18,17 @@ interface TopPropertyCardProps {
 }
 
 const TopPropertyCard = (props: TopPropertyCardProps) => {
-	const { property,likePropertyHandler } = props;
+	const { property, likePropertyHandler } = props;
 	const device = useDeviceDetect();
 	const router = useRouter();
 	const user = useReactiveVar(userVar);
 
 	/** HANDLERS **/
-
 	const pushDetailHandler = async (propertyId: string) => {
-		console.log('propertyId', propertyId);
-		await router.push({ pathname: '/property/detail', query: {id: propertyId}})
-	}
+		console.log('propertyId:', propertyId);
+		await router.push({ pathname: '/property/detail', query: { id: propertyId } });
+	};
+
 	if (device === 'mobile') {
 		return (
 			<Stack className="top-card-box">
@@ -37,15 +36,21 @@ const TopPropertyCard = (props: TopPropertyCardProps) => {
 					component={'div'}
 					className={'card-img'}
 					style={{ backgroundImage: `url(${REACT_APP_API_URL}/${property?.propertyImages[0]})` }}
+					onClick={() => {
+						pushDetailHandler(property._id);
+					}}
 				>
 					<div>${property?.propertyPrice}</div>
 				</Box>
-				<Box component={'div'} className={'info'} onClick={() => {
-						pushDetailHandler(property._id);
-					}}>
-					<strong className={'title'} onClick={() => {
-						pushDetailHandler(property._id);
-					}}>{property?.propertyTitle}</strong>
+				<Box component={'div'} className={'info'}>
+					<strong
+						className={'title'}
+						onClick={() => {
+							pushDetailHandler(property._id);
+						}}
+					>
+						{property?.propertyTitle}
+					</strong>
 					<p className={'desc'}>{property?.propertyAddress}</p>
 					<div className={'options'}>
 						<div>
@@ -69,11 +74,11 @@ const TopPropertyCard = (props: TopPropertyCardProps) => {
 							{property.propertyBarter ? 'Barter' : ''}
 						</p>
 						<div className="view-like-box">
-							<IconButton color={'default'} >
+							<IconButton color={'default'}>
 								<RemoveRedEyeIcon />
 							</IconButton>
 							<Typography className="view-cnt">{property?.propertyViews}</Typography>
-							<IconButton color={'default'} onClick={() => likePropertyHandler(user, property?._id)}>
+							<IconButton color={'default'} onClick={() => likePropertyHandler(user, property._id)}>
 								{property?.meLiked && property?.meLiked[0]?.myFavorite ? (
 									<FavoriteIcon style={{ color: 'red' }} />
 								) : (
@@ -99,12 +104,15 @@ const TopPropertyCard = (props: TopPropertyCardProps) => {
 				>
 					<div>${property?.propertyPrice}</div>
 				</Box>
-				<Box component={'div'} className={'info'} onClick={() => {
-						pushDetailHandler(property._id);
-					}}>
-					<strong className={'title'} onClick={() => {
-						pushDetailHandler(property._id);
-					}}>{property?.propertyTitle}</strong>
+				<Box component={'div'} className={'info'}>
+					<strong
+						className={'title'}
+						onClick={() => {
+							pushDetailHandler(property._id);
+						}}
+					>
+						{property?.propertyTitle}
+					</strong>
 					<p className={'desc'}>{property?.propertyAddress}</p>
 					<div className={'options'}>
 						<div>
@@ -128,11 +136,11 @@ const TopPropertyCard = (props: TopPropertyCardProps) => {
 							{property.propertyBarter ? 'Barter' : ''}
 						</p>
 						<div className="view-like-box">
-							<IconButton color={'default'}  >
+							<IconButton color={'default'}>
 								<RemoveRedEyeIcon />
 							</IconButton>
 							<Typography className="view-cnt">{property?.propertyViews}</Typography>
-							<IconButton color={'default'} onClick={() => likePropertyHandler(user, property?._id)}>
+							<IconButton color={'default'} onClick={() => likePropertyHandler(user, property._id)}>
 								{property?.meLiked && property?.meLiked[0]?.myFavorite ? (
 									<FavoriteIcon style={{ color: 'red' }} />
 								) : (
@@ -149,9 +157,3 @@ const TopPropertyCard = (props: TopPropertyCardProps) => {
 };
 
 export default TopPropertyCard;
-function likeTargetProperty(arg0: { variables: { input: string; }; }) {
-	throw new Error('Function not implemented.');
-}
-function getPropertiesRefetch(arg0: { input: any; }) {
-	throw new Error('Function not implemented.');
-}

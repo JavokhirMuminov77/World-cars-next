@@ -20,11 +20,11 @@ const PopularPropertyCard = (props: PopularPropertyCardProps) => {
 	const user = useReactiveVar(userVar);
 
 	/** HANDLERS **/
-	const pushDetailHandler = async (propertyId: string) => {
-		console.log('propertyId', propertyId);
-		await router.push({ pathname: '/property/detail', query: {id: propertyId}})
-	}
 
+	const pushDetailHandler = async (propertyId: string) => {
+		console.log('propertyId:', propertyId);
+		await router.push({ pathname: '/property/detail', query: { id: propertyId } });
+	};
 	if (device === 'mobile') {
 		return (
 			<Stack className="popular-card-box">
@@ -32,8 +32,11 @@ const PopularPropertyCard = (props: PopularPropertyCardProps) => {
 					component={'div'}
 					className={'card-img'}
 					style={{ backgroundImage: `url(${REACT_APP_API_URL}/${property?.propertyImages[0]})` }}
+					onClick={() => {
+						pushDetailHandler(property._id);
+					}}
 				>
-					{property && property?.propertyRank >= topPropertyRank ? (
+					{property?.propertyRank && property?.propertyRank >= topPropertyRank ? (
 						<div className={'status'}>
 							<img src="/img/icons/electricity.svg" alt="" />
 							<span>top</span>
@@ -44,12 +47,15 @@ const PopularPropertyCard = (props: PopularPropertyCardProps) => {
 
 					<div className={'price'}>${property.propertyPrice}</div>
 				</Box>
-				<Box component={'div'} className={'info'} onClick={() => {
-						pushDetailHandler(property._id);
-					}}>
-					<strong className={'title'} onClick={() => {
-						pushDetailHandler(property._id);
-					}}>{property.propertyTitle}</strong>
+				<Box component={'div'} className={'info'}>
+					<strong
+						className={'title'}
+						onClick={() => {
+							pushDetailHandler(property._id);
+						}}
+					>
+						{property.propertyTitle}
+					</strong>
 					<p className={'desc'}>{property.propertyAddress}</p>
 					<div className={'options'}>
 						<div>
@@ -101,9 +107,14 @@ const PopularPropertyCard = (props: PopularPropertyCardProps) => {
 					<div className={'price'}>${property.propertyPrice}</div>
 				</Box>
 				<Box component={'div'} className={'info'}>
-					<strong className={'title'} onClick={() => {
-						pushDetailHandler(property._id);
-					}}>{property.propertyTitle}</strong>
+					<strong
+						className={'title'}
+						onClick={() => {
+							pushDetailHandler(property._id);
+						}}
+					>
+						{property.propertyTitle}
+					</strong>
 					<p className={'desc'}>{property.propertyAddress}</p>
 					<div className={'options'}>
 						<div>
