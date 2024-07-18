@@ -45,12 +45,12 @@ const HeaderFilter = (props: HeaderFilterProps) => {
 	const [searchFilter, setSearchFilter] = useState<PropertiesInquiry>(initialInput);
 	const locationRef: any = useRef();
 	const typeRef: any = useRef();
-	const roomsRef: any = useRef();
+	const sizeRef: any = useRef();
 	const router = useRouter();
 	const [openAdvancedFilter, setOpenAdvancedFilter] = useState(false);
 	const [openLocation, setOpenLocation] = useState(false);
 	const [openType, setOpenType] = useState(false);
-	const [openRooms, setOpenRooms] = useState(false);
+	const [openSize, setOpenSize] = useState(false);
 	const [propertyLocation, setPropertyLocation] = useState<PropertyLocation[]>(Object.values(PropertyLocation));
 	const [propertyType, setPropertyType] = useState<PropertyType[]>(Object.values(PropertyType));
 	const [yearCheck, setYearCheck] = useState({ start: 1970, end: thisYear });
@@ -67,8 +67,8 @@ const HeaderFilter = (props: HeaderFilterProps) => {
 				setOpenType(false);
 			}
 
-			if (!roomsRef?.current?.contains(event.target)) {
-				setOpenRooms(false);
+			if (!sizeRef?.current?.contains(event.target)) {
+				setOpenSize(false);
 			}
 		};
 
@@ -82,31 +82,31 @@ const HeaderFilter = (props: HeaderFilterProps) => {
 	/** HANDLERS **/
 	const advancedFilterHandler = (status: boolean) => {
 		setOpenLocation(false);
-		setOpenRooms(false);
+		 setOpenSize(false);
 		setOpenType(false);
 		setOpenAdvancedFilter(status);
 	};
 
 	const locationStateChangeHandler = () => {
 		setOpenLocation((prev) => !prev);
-		setOpenRooms(false);
+		 setOpenSize(false);
 		setOpenType(false);
 	};
 
 	const typeStateChangeHandler = () => {
 		setOpenType((prev) => !prev);
 		setOpenLocation(false);
-		setOpenRooms(false);
+		setOpenSize(false);
 	};
 
-	const roomStateChangeHandler = () => {
-		setOpenRooms((prev) => !prev);
+	const seattateChangeHandler = () => {
+		setOpenSize((prev) => !prev);
 		setOpenType(false);
 		setOpenLocation(false);
 	};
 
 	const disableAllStateHandler = () => {
-		setOpenRooms(false);
+		setOpenSize(false);
 		setOpenType(false);
 		setOpenLocation(false);
 	};
@@ -139,7 +139,7 @@ const HeaderFilter = (props: HeaderFilterProps) => {
 						typeList: [value],
 					},
 				});
-				roomStateChangeHandler();
+				seattateChangeHandler();
 			} catch (err: any) {
 				console.log('ERROR, propertyTypeSelectHandler:', err);
 			}
@@ -147,54 +147,54 @@ const HeaderFilter = (props: HeaderFilterProps) => {
 		[searchFilter],
 	);
 
-	const propertyRoomSelectHandler = useCallback(
+	const propertySizeSelectHandler = useCallback(
 		async (value: any) => {
 			try {
 				setSearchFilter({
 					...searchFilter,
 					search: {
 						...searchFilter.search,
-						roomsList: [value],
+						seatList: [value],
 					},
 				});
 				disableAllStateHandler();
 			} catch (err: any) {
-				console.log('ERROR, propertyRoomSelectHandler:', err);
+				console.log('ERROR, propertySizeSelectHandler:', err);
 			}
 		},
 		[searchFilter],
 	);
 
-	const propertyBedSelectHandler = useCallback(
-		async (number: Number) => {
-			try {
-				if (number != 0) {
-					if (searchFilter?.search?.bedsList?.includes(number)) {
-						setSearchFilter({
-							...searchFilter,
-							search: {
-								...searchFilter.search,
-								bedsList: searchFilter?.search?.bedsList?.filter((item: Number) => item !== number),
-							},
-						});
-					} else {
-						setSearchFilter({
-							...searchFilter,
-							search: { ...searchFilter.search, bedsList: [...(searchFilter?.search?.bedsList || []), number] },
-						});
-					}
-				} else {
-					delete searchFilter?.search.bedsList;
-					setSearchFilter({ ...searchFilter });
-				}
+	// const propertyBedSelectHandler = useCallback(
+	// 	async (number: Number) => {
+	// 		try {
+	// 			if (number != 0) {
+	// 				if (searchFilter?.search?.bedsList?.includes(number)) {
+	// 					setSearchFilter({
+	// 						...searchFilter,
+	// 						search: {
+	// 							...searchFilter.search,
+	// 							bedsList: searchFilter?.search?.bedsList?.filter((item: Number) => item !== number),
+	// 						},
+	// 					});
+	// 				} else {
+	// 					setSearchFilter({
+	// 						...searchFilter,
+	// 						search: { ...searchFilter.search, bedsList: [...(searchFilter?.search?.bedsList || []), //number] },
+	// 					});
+	// 				}
+	// 			} else {
+	// 				delete searchFilter?.search.bedsList;
+	// 				setSearchFilter({ ...searchFilter });
+	// 			}
 
-				console.log('propertyBedSelectHandler:', number);
-			} catch (err: any) {
-				console.log('ERROR, propertyBedSelectHandler:', err);
-			}
-		},
-		[searchFilter],
-	);
+	// 			console.log('propertyBedSelectHandler:', number);
+	// 		} catch (err: any) {
+	// 			console.log('ERROR, propertyBedSelectHandler:', err);
+	// 		}
+	// 	},
+	// 	[searchFilter],
+	// );
 
 	const propertyOptionSelectHandler = useCallback(
 		async (e: any) => {
@@ -226,7 +226,7 @@ const HeaderFilter = (props: HeaderFilterProps) => {
 		[searchFilter],
 	);
 
-	const propertySquareHandler = useCallback(
+	const propertySizeHandler = useCallback(
 		async (e: any, type: string) => {
 			const value = e.target.value;
 
@@ -236,7 +236,7 @@ const HeaderFilter = (props: HeaderFilterProps) => {
 					search: {
 						...searchFilter.search,
 						// @ts-ignore
-						squaresRange: { ...searchFilter.search.squaresRange, start: parseInt(value) },
+						sizeRange: { ...searchFilter.search.sizeRange, start: parseInt(value) },
 					},
 				});
 			} else {
@@ -245,7 +245,7 @@ const HeaderFilter = (props: HeaderFilterProps) => {
 					search: {
 						...searchFilter.search,
 						// @ts-ignore
-						squaresRange: { ...searchFilter.search.squaresRange, end: parseInt(value) },
+						sizeRange: { ...searchFilter.search.sizeRange, end: parseInt(value) },
 					},
 				});
 			}
@@ -293,17 +293,17 @@ const HeaderFilter = (props: HeaderFilterProps) => {
 				delete searchFilter.search.typeList;
 			}
 
-			if (searchFilter?.search?.roomsList?.length == 0) {
-				delete searchFilter.search.roomsList;
+			if (searchFilter?.search?.sizeList?.length == 0) {
+				delete searchFilter.search.sizeList;
 			}
 
 			if (searchFilter?.search?.options?.length == 0) {
 				delete searchFilter.search.options;
 			}
 
-			if (searchFilter?.search?.bedsList?.length == 0) {
-				delete searchFilter.search.bedsList;
-			}
+			// if (searchFilter?.search?.bedsList?.length == 0) {
+			// 	delete searchFilter.search.bedsList;
+			// }
 
 			await router.push(
 				`/property?input=${JSON.stringify(searchFilter)}`,
@@ -329,9 +329,9 @@ const HeaderFilter = (props: HeaderFilterProps) => {
 							<span> {searchFilter?.search?.typeList ? searchFilter?.search?.typeList[0] : t('Property type')} </span>
 							<ExpandMoreIcon />
 						</Box>
-						<Box className={`box ${openRooms ? 'on' : ''}`} onClick={roomStateChangeHandler}>
+						<Box className={`box ${openSize ? 'on' : ''}`} onClick={seattateChangeHandler}>
 							<span>
-								{searchFilter?.search?.roomsList ? `${searchFilter?.search?.roomsList[0]} rooms}` : t('Rooms')}
+								{searchFilter?.search?.seatList ? `${searchFilter?.search?.seatList[0]} size` : t('Cars size')}
 							</span>
 							<ExpandMoreIcon />
 						</Box>
@@ -351,7 +351,7 @@ const HeaderFilter = (props: HeaderFilterProps) => {
 						{propertyLocation.map((location: string) => {
 							return (
 								<div onClick={() => propertyLocationSelectHandler(location)} key={location}>
-									<img src={`img/banner/cities/${location}.webp`} alt="" />
+									<img src={`/cities/${location}.webp`} alt="" />
 									<span>{location}</span>
 								</div>
 							);
@@ -372,11 +372,11 @@ const HeaderFilter = (props: HeaderFilterProps) => {
 						})}
 					</div>
 
-					<div className={`filter-rooms ${openRooms ? 'on' : ''}`} ref={roomsRef}>
-						{[1, 2, 3, 4, 5].map((room: number) => {
+					<div className={`filter-rooms ${openSize ? 'on' : ''}`} ref={sizeRef}>
+						{[1.5, 2, 2.5, 3, 3.5, 4].map((seat: number) => {
 							return (
-								<span onClick={() => propertyRoomSelectHandler(room)} key={room}>
-									{room} room{room > 1 ? 's' : ''}
+								<span onClick={() => propertySizeSelectHandler(seat)} key={seat}>
+									{seat} size
 								</span>
 							);
 						})}
@@ -416,26 +416,6 @@ const HeaderFilter = (props: HeaderFilterProps) => {
 							<Divider sx={{ mt: '30px', mb: '35px' }} />
 							<div className={'middle'}>
 								<div className={'row-box'}>
-									<div className={'box'}>
-										<span>bedrooms</span>
-										<div className={'inside'}>
-											<div
-												className={`room ${!searchFilter?.search?.bedsList ? 'active' : ''}`}
-												onClick={() => propertyBedSelectHandler(0)}
-											>
-												Any
-											</div>
-											{[1, 2, 3, 4, 5].map((bed: number) => (
-												<div
-													className={`room ${searchFilter?.search?.bedsList?.includes(bed) ? 'active' : ''}`}
-													onClick={() => propertyBedSelectHandler(bed)}
-													key={bed}
-												>
-													{bed == 0 ? 'Any' : bed}
-												</div>
-											))}
-										</div>
-									</div>
 									<div className={'box'}>
 										<span>options</span>
 										<div className={'inside'}>
@@ -494,24 +474,24 @@ const HeaderFilter = (props: HeaderFilterProps) => {
 											</FormControl>
 										</div>
 									</div>
-									<div className={'box'}>
-										<span>square meter</span>
+									{/* <div className={'box'}>
+										<span>Size meter</span>
 										<div className={'inside space-between align-center'}>
 											<FormControl sx={{ width: '122px' }}>
 												<Select
-													value={searchFilter?.search?.squaresRange?.start}
-													onChange={(e: any) => propertySquareHandler(e, 'start')}
+													value={searchFilter?.search?.sizeRange?.start}
+													onChange={(e: any) => propertySizeHandler(e, 'start')}
 													displayEmpty
 													inputProps={{ 'aria-label': 'Without label' }}
 													MenuProps={MenuProps}
 												>
-													{propertySquare.map((square: number) => (
+													{propertySquare.map((Size: number) => (
 														<MenuItem
-															value={square}
-															disabled={(searchFilter?.search?.squaresRange?.end || 0) < square}
-															key={square}
+															value={Size}
+															disabled={(searchFilter?.search?.sizeRange?.end || 0) < Size}
+															key={Size}
 														>
-															{square}
+															{Size}
 														</MenuItem>
 													))}
 												</Select>
@@ -519,25 +499,25 @@ const HeaderFilter = (props: HeaderFilterProps) => {
 											<div className={'minus-line'}></div>
 											<FormControl sx={{ width: '122px' }}>
 												<Select
-													value={searchFilter?.search?.squaresRange?.end}
-													onChange={(e: any) => propertySquareHandler(e, 'end')}
+													value={searchFilter?.search?.sizeRange?.end}
+													onChange={(e: any) => propertySizeHandler(e, 'end')}
 													displayEmpty
 													inputProps={{ 'aria-label': 'Without label' }}
 													MenuProps={MenuProps}
 												>
-													{propertySquare.map((square: number) => (
+													{propertySquare.map((Size: number) => (
 														<MenuItem
-															value={square}
-															disabled={(searchFilter?.search?.squaresRange?.start || 0) > square}
-															key={square}
+															value={Size}
+															disabled={(searchFilter?.search?.sizeRange?.start || 0) > Size}
+															key={Size}
 														>
-															{square}
+															{Size}
 														</MenuItem>
 													))}
 												</Select>
 											</FormControl>
 										</div>
-									</div>
+									</div> */}
 								</div>
 							</div>
 							<Divider sx={{ mt: '60px', mb: '18px' }} />
@@ -567,9 +547,9 @@ HeaderFilter.defaultProps = {
 		page: 1,
 		limit: 9,
 		search: {
-			squaresRange: {
-				start: 0,
-				end: 500,
+			sizeRange: {
+				start: 2,
+				end: 4,
 			},
 			pricesRange: {
 				start: 0,

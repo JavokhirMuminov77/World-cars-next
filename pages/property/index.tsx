@@ -11,9 +11,9 @@ import { Property } from '../../libs/types/property/property';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import KeyboardArrowDownRoundedIcon from '@mui/icons-material/KeyboardArrowDownRounded';
 import { Direction, Message } from '../../libs/enums/common.enum';
+import { GET_PROPERTIES } from '../../apollo/user/query';
 import { useMutation, useQuery } from '@apollo/client';
 import { T } from '../../libs/types/common';
-import { GET_PROPERTIES } from '../../apollo/user/query';
 import { LIKE_TARGET_PROPERTY } from '../../apollo/user/mutation';
 import { sweetMixinErrorAlert, sweetTopSmallSuccessAlert } from '../../libs/sweetAlert';
 
@@ -65,8 +65,8 @@ const PropertyList: NextPage = ({ initialInput, ...props }: any) => {
 	}, [router]);
 
 	useEffect(() => {
-		console.log('searchFilter', searchFilter);
-		// getPropertiesRefetch({ input: searchFilter }).then();
+		console.log("searchFilter", searchFilter)
+		//getPropertiesRefetch({input: searchFilter}).then();
 	}, [searchFilter]);
 
 	/** HANDLERS **/
@@ -81,23 +81,26 @@ const PropertyList: NextPage = ({ initialInput, ...props }: any) => {
 		);
 		setCurrentPage(value);
 	};
-	const likePropertyHandler = async (user: T, id: string) => {
-		try {
-			if (!id) return;
-			if (!user._id) throw new Error(Message.NOT_AUTHENTICATED);
 
-			await likeTargetProperty({
-				variables: { input: id },
-			});
 
-			await getPropertiesRefetch({ input: initialInput });
+	const likePropertyHandler = async(user: T, id: string) => {
+		try{
+			if(!id) return;
+			if(!user._id) throw new Error(Message.NOT_AUTHENTICATED);
 
-			await sweetTopSmallSuccessAlert('success', 800);
+			// execute likeTargetProperty Mutation
+			await likeTargetProperty(
+				{variables: {input: id}}
+			);
+			//execute getPropertiesRefetch
+			await getPropertiesRefetch({input: initialInput});
+             await sweetTopSmallSuccessAlert("success", 400);
 		} catch (err: any) {
-			console.log('Error, likePropertyHandler', err.message);
+			console.log('ERROR, likePropertyHandler ', err.message);
 			sweetMixinErrorAlert(err.message).then();
 		}
-	};
+	}
+
 
 	const sortingClickHandler = (e: MouseEvent<HTMLElement>) => {
 		setAnchorEl(e.currentTarget);
@@ -181,9 +184,7 @@ const PropertyList: NextPage = ({ initialInput, ...props }: any) => {
 									</div>
 								) : (
 									properties.map((property: Property) => {
-										return (
-											<PropertyCard likePropertyHandler={likePropertyHandler} property={property} key={property?._id} />
-										);
+										return <PropertyCard property={property} likePropertyHandler={likePropertyHandler} key={property?._id} />;
 									})
 								)}
 							</Stack>
@@ -219,14 +220,14 @@ const PropertyList: NextPage = ({ initialInput, ...props }: any) => {
 PropertyList.defaultProps = {
 	initialInput: {
 		page: 1,
-		limit: 9,
+		limit: 6,
 		sort: 'createdAt',
 		direction: 'DESC',
 		search: {
-			squaresRange: {
-				start: 0,
-				end: 500,
-			},
+			// squaresRange: {
+			// 	start: 0,
+			// 	end: 500,
+			// },
 			pricesRange: {
 				start: 0,
 				end: 2000000,

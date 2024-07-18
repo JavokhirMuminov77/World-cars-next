@@ -50,9 +50,8 @@ const AddProperty = ({ initialValues, ...props }: any) => {
 			propertyAddress: getPropertyData?.getProperty ? getPropertyData?.getProperty?.propertyAddress : '',
 			propertyBarter: getPropertyData?.getProperty ? getPropertyData?.getProperty?.propertyBarter : false,
 			propertyRent: getPropertyData?.getProperty ? getPropertyData?.getProperty?.propertyRent : false,
-			propertyRooms: getPropertyData?.getProperty ? getPropertyData?.getProperty?.propertyRooms : 0,
-			propertyBeds: getPropertyData?.getProperty ? getPropertyData?.getProperty?.propertyBeds : 0,
-			propertySquare: getPropertyData?.getProperty ? getPropertyData?.getProperty?.propertySquare : 0,
+			propertySeat: getPropertyData?.getProperty ? getPropertyData?.getProperty?.propertySeat : 0,
+			propertySize: getPropertyData?.getProperty ? getPropertyData?.getProperty?.propertySize : 0,
 			propertyDesc: getPropertyData?.getProperty ? getPropertyData?.getProperty?.propertyDesc : '',
 			propertyImages: getPropertyData?.getProperty ? getPropertyData?.getProperty?.propertyImages : [],
 		});
@@ -120,9 +119,8 @@ const AddProperty = ({ initialValues, ...props }: any) => {
 			insertPropertyData.propertyAddress === '' || // @ts-ignore
 			insertPropertyData.propertyBarter === '' || // @ts-ignore
 			insertPropertyData.propertyRent === '' ||
-			insertPropertyData.propertyRooms === 0 ||
-			insertPropertyData.propertyBeds === 0 ||
-			insertPropertyData.propertySquare === 0 ||
+			insertPropertyData.propertySeat === 0 ||
+			insertPropertyData.propertySize === 0 ||
 			insertPropertyData.propertyDesc === '' ||
 			insertPropertyData.propertyImages.length === 0
 		) {
@@ -324,34 +322,15 @@ const AddProperty = ({ initialValues, ...props }: any) => {
 							</Stack>
 
 							<Stack className="config-row">
-								<Stack className="price-year-after-price">
-									<Typography className="title">Rooms</Typography>
-									<select
-										className={'select-description'}
-										value={insertPropertyData.propertyRooms || 'select'}
-										defaultValue={insertPropertyData.propertyRooms || 'select'}
-										onChange={({ target: { value } }) =>
-											setInsertPropertyData({ ...insertPropertyData, propertyRooms: parseInt(value) })
-										}
-									>
-										<option disabled={true} selected={true} value={'select'}>
-											Select
-										</option>
-										{[1, 2, 3, 4, 5].map((room: number) => (
-											<option value={`${room}`}>{room}</option>
-										))}
-									</select>
-									<div className={'divider'}></div>
-									<img src={'/img/icons/Vector.svg'} className={'arrow-down'} />
-								</Stack>
+
 								<Stack className="price-year-after-price">
 									<Typography className="title">Bed</Typography>
 									<select
 										className={'select-description'}
-										value={insertPropertyData.propertyBeds || 'select'}
-										defaultValue={insertPropertyData.propertyBeds || 'select'}
+										value={insertPropertyData.propertySeat || 'select'}
+										defaultValue={insertPropertyData.propertySeat || 'select'}
 										onChange={({ target: { value } }) =>
-											setInsertPropertyData({ ...insertPropertyData, propertyBeds: parseInt(value) })
+											setInsertPropertyData({ ...insertPropertyData, propertySeat: parseInt(value) })
 										}
 									>
 										<option disabled={true} selected={true} value={'select'}>
@@ -368,10 +347,10 @@ const AddProperty = ({ initialValues, ...props }: any) => {
 									<Typography className="title">Square</Typography>
 									<select
 										className={'select-description'}
-										value={insertPropertyData.propertySquare || 'select'}
-										defaultValue={insertPropertyData.propertySquare || 'select'}
+										value={insertPropertyData.propertySize || 'select'}
+										defaultValue={insertPropertyData.propertySize || 'select'}
 										onChange={({ target: { value } }) =>
-											setInsertPropertyData({ ...insertPropertyData, propertySquare: parseInt(value) })
+											setInsertPropertyData({ ...insertPropertyData, propertySize: parseInt(value) })
 										}
 									>
 										<option disabled={true} selected={true} value={'select'}>
@@ -520,9 +499,8 @@ AddProperty.defaultProps = {
 		propertyAddress: '',
 		propertyBarter: false,
 		propertyRent: false,
-		propertyRooms: 0,
-		propertyBeds: 0,
-		propertySquare: 0,
+		propertySeat: 0,
+		propertySize: 0,
 		propertyDesc: '',
 		propertyImages: [],
 	},

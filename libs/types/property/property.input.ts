@@ -7,9 +7,9 @@ export interface PropertyInput {
 	propertyAddress: string;
 	propertyTitle: string;
 	propertyPrice: number;
-	propertySquare: number;
-	propertyBeds: number;
-	propertyRooms: number;
+	propertySize: number;
+	// propertyBeds: number;
+	propertySeat: number;
 	propertyImages: string[];
 	propertyDesc?: string;
 	propertyBarter?: boolean;
@@ -19,16 +19,17 @@ export interface PropertyInput {
 }
 
 interface PISearch {
+	sizeList: any;
 	commentRefId: any;
 	memberId?: string;
 	locationList?: PropertyLocation[];
 	typeList?: PropertyType[];
-	roomsList?: Number[];
+	seatList?: Number[];
 	options?: string[];
-	bedsList?: Number[];
+	// bedsList?: Number[];
 	pricesRange?: Range;
 	periodsRange?: PeriodsRange;
-	squaresRange?: Range;
+	sizeRange?: Range;
 	text?: string;
 }
 

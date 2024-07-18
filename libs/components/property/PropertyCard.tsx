@@ -6,7 +6,7 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import { Property } from '../../types/property/property';
 import Link from 'next/link';
 import { formatterStr } from '../../utils';
-import { REACT_APP_API_URL, topPropertyRank } from '../../config';
+import { REACT_APP_API_URL } from '../../config';
 import { useReactiveVar } from '@apollo/client';
 import { userVar } from '../../../apollo/store';
 import IconButton from '@mui/material/IconButton';
@@ -25,7 +25,7 @@ const PropertyCard = (props: PropertyCardType) => {
 	const user = useReactiveVar(userVar);
 	const imagePath: string = property?.propertyImages[0]
 		? `${REACT_APP_API_URL}/${property?.propertyImages[0]}`
-		: '/img/banner/header1.jpg';
+		: '/img/banner/header1.svg';
 
 	if (device === 'mobile') {
 		return <div>PROPERTY CARD</div>;
@@ -41,7 +41,7 @@ const PropertyCard = (props: PropertyCardType) => {
 					>
 						<img src={imagePath} alt="" />
 					</Link>
-					{property && property?.propertyRank > topPropertyRank && (
+					{property && property?.propertyRank > 0 && (
 						<Box component={'div'} className={'top-badge'}>
 							<img src="/img/icons/electricity.svg" alt="" />
 							<Typography>TOP</Typography>
@@ -71,13 +71,13 @@ const PropertyCard = (props: PropertyCardType) => {
 					</Stack>
 					<Stack className="options">
 						<Stack className="option">
-							<img src="/img/icons/bed.svg" alt="" /> <Typography>{property.propertyBeds} bed</Typography>
+							{/* <img src="/img/icons/bed.svg" alt="" /> <Typography>{property.propertyBeds} bed</Typography> */}
 						</Stack>
 						<Stack className="option">
-							<img src="/img/icons/room.svg" alt="" /> <Typography>{property.propertyRooms} room</Typography>
+							<img src="/img/icons/room.svg" alt="" /> <Typography>{property.propertySeat} seat</Typography>
 						</Stack>
 						<Stack className="option">
-							<img src="/img/icons/expand.svg" alt="" /> <Typography>{property.propertySquare} m2</Typography>
+							<img src="/img/icons/expand.svg" alt="" /> <Typography>{property.propertySize} m2</Typography>
 						</Stack>
 					</Stack>
 					<Stack className="divider"></Stack>

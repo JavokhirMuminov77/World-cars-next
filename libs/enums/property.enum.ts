@@ -1,7 +1,15 @@
 export enum PropertyType {
-	APARTMENT = 'APARTMENT',
-	VILLA = 'VILLA',
-	HOUSE = 'HOUSE',
+	HYUNDAI = 'HYUNDAI',
+	GENESIS = 'GENESIS',
+	BMW = 'BMW',
+	KIA = 'KIA',
+	MERCDES = 'MERCDES',
+	TOYOTA = 'TOYOTA',
+	AUDI = 'AUDI',
+	VPLKSWAGEN = 'VPLKSWAGEN',
+	LEXUS = 'LEXUS',
+	MOTORCYCLE = 'MOTORCYCLE',
+	OTHERS = 'OTHERS',
 }
 
 export enum PropertyStatus {

@@ -29,31 +29,26 @@ const tokenRefreshLink = new TokenRefreshLink({
 	},
 });
 
-// Custom WebSocket client
 class LoggingWebSocket {
 	private socket: WebSocket;
-
 	constructor(url: string) {
 		this.socket = new WebSocket(`${url}?token=${getJwtToken()}`);
 		socketVar(this.socket);
-
 		this.socket.onopen = () => {
 			console.log('WebSocket connection!');
 		};
-
 		this.socket.onmessage = (msg) => {
-			console.log('WebSocket message:', msg.data);
+			console.log('WebSocket message: ', msg.data);
 		};
 
 		this.socket.onerror = (error) => {
-			console.log('WebSocket, error:', error);
+			console.log('WebSocket error: ', error);
 		};
 	}
 
 	send(data: string | ArrayBuffer | SharedArrayBuffer | Blob | ArrayBufferView) {
 		this.socket.send(data);
 	}
-
 	close() {
 		this.socket.close();
 	}

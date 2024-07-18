@@ -320,15 +320,18 @@ body::-webkit-scrollbar {
 				}
 				.filter-type {
 					position: absolute;
-					padding: 50px;
+					padding: 5px;
 					width: 1094px;
-					min-height: 120px;
+					min-height: 100px;
 					height: auto;
 					top: 96px;
 					right: 0px;
 					display: flex;
 					flex-direction: row;
-					justify-content: space-between;
+					flex-wrap: wrap;
+					gap: 40px;
+
+
 					visibility: hidden;
 					border-radius: 12px;
 					background: #fff;
@@ -341,17 +344,26 @@ body::-webkit-scrollbar {
 						background: #fffdfd;
 					}
 					div {
+						background-color:#257677;
 						position: relative;
 						width: 272px;
-						height: 168px;
+						height: 50px;
 						border-radius: 15px;
 						cursor: pointer;
 						background-size: cover;
+						&:hover {
+							background-color:white;
+							border: 2px solid #257677;
+							}
+
 						span {
+							text-align: center ;
 							position: absolute;
 							top: 13px;
 							right: 12px;
-							padding: 1px 5px 5px 5px;
+							left: 12px;
+							bottom: 13px;
+							padding: 5px 5px 5px 5px;
 							border-radius: 2px 2px 0px 0px;
 							font-family: $font;
 							font-size: 20px;
@@ -362,6 +374,7 @@ body::-webkit-scrollbar {
 							// -webkit-background-clip: text;
 							// -webkit-text-fill-color: transparent;
 							text-transform: capitalize;
+
 						}
 					}
 				}
