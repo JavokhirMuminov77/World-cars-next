@@ -88,7 +88,7 @@ export const GET_PROPERTY = gql`
 			_id
 			propertyType
 			propertyStatus
-			propertyLocation
+			propertyTypes
 			propertyAddress
 			propertyTitle
 			propertyPrice
@@ -143,7 +143,7 @@ export const GET_PROPERTIES = gql`
 				_id
 				propertyType
 				propertyStatus
-				propertyLocation
+				propertyTypes
 				propertyAddress
 				propertyTitle
 				propertyPrice
@@ -204,7 +204,7 @@ export const GET_AGENT_PROPERTIES = gql`
 				_id
 				propertyType
 				propertyStatus
-				propertyLocation
+				propertyTypes
 				propertyAddress
 				propertyTitle
 				propertyPrice
@@ -237,7 +237,7 @@ export const GET_FAVORITES = gql`
 				_id
 				propertyType
 				propertyStatus
-				propertyLocation
+				propertyTypes
 				propertyAddress
 				propertyTitle
 				propertyPrice
@@ -299,7 +299,7 @@ export const GET_VISITED = gql`
 				_id
 				propertyType
 				propertyStatus
-				propertyLocation
+				propertyTypes
 				propertyAddress
 				propertyTitle
 				propertyPrice

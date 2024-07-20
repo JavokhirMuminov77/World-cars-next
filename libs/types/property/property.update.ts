@@ -1,10 +1,10 @@
-import { PropertyLocation, PropertyStatus, PropertyType } from '../../enums/property.enum';
+import { PropertyTypes, PropertyStatus, PropertyType } from '../../enums/property.enum';
 
 export interface PropertyUpdate {
 	_id: string;
 	propertyType?: PropertyType;
 	propertyStatus?: PropertyStatus;
-	propertyLocation?: PropertyLocation;
+	propertyTypes?: PropertyTypes;
 	propertyAddress?: string;
 	propertyTitle?: string;
 	propertyPrice?: number;

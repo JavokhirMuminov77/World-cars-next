@@ -38,7 +38,7 @@ const Faq = () => {
 
 	/** APOLLO REQUESTS **/
 	/** LIFECYCLES **/
-	
+
 	/** HANDLERS **/
 	const changeCategoryHandler = (category: string) => {
 		setCategory(category);
@@ -63,7 +63,7 @@ const Faq = () => {
 			{
 				id: '00f5a45ed8897f8090116a21',
 				subject: 'How can I search for properties on your website?',
-				content: 'Simply use our search bar to enter location, price range, bedrooms/bathrooms, and property type.',
+				content: 'Simply use our search bar to enter types, price range, bedrooms/bathrooms, and property type.',
 			},
 			{
 				id: '00f5a45ed8897f8090116a23',
@@ -73,7 +73,7 @@ const Faq = () => {
 			{
 				id: '00f5a45ed8897f8090116a24',
 				subject: 'What should I consider when buying a property?',
-				content: 'Location, condition, size, amenities, and future development plans.',
+				content: 'types, condition, size, amenities, and future development plans.',
 			},
 			{
 				id: '00f5a45ed8897f8090116a25',
@@ -180,7 +180,7 @@ const Faq = () => {
 				id: '00f5a45ed8897f8090116a83',
 				subject: 'What factors should I consider when choosing a neighborhood?',
 				content:
-					'Consider factors such as location, safety, schools, amenities, transportation, and future development plans.',
+					'Consider factors such as types, safety, schools, amenities, transportation, and future development plans.',
 			},
 			{
 				id: '00f5a45ed8897f8090116a82',

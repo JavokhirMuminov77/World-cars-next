@@ -128,7 +128,7 @@ export const CREATE_PROPERTY = gql`
 			_id
 			propertyType
 			propertyStatus
-			propertyLocation
+			propertyTypes
 			propertyAddress
 			propertyTitle
 			propertyPrice
@@ -156,7 +156,7 @@ export const UPDATE_PROPERTY = gql`
 			_id
 			propertyType
 			propertyStatus
-			propertyLocation
+			propertyTypes
 			propertyAddress
 			propertyTitle
 			propertyPrice
@@ -184,7 +184,7 @@ export const LIKE_TARGET_PROPERTY = gql`
 			_id
 			propertyType
 			propertyStatus
-			propertyLocation
+			propertyTypes
 			propertyAddress
 			propertyTitle
 			propertyPrice

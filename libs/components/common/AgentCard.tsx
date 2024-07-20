@@ -1,6 +1,6 @@
 import React from 'react';
 import useDeviceDetect from '../../hooks/useDeviceDetect';
-import { Stack, Box, Typography } from '@mui/material';
+import { Stack, Box, Typography, Button } from '@mui/material';
 import Link from 'next/link';
 import { REACT_APP_API_URL } from '../../config';
 import IconButton from '@mui/material/IconButton';
@@ -74,8 +74,20 @@ const AgentCard = (props: AgentCardProps) => {
 							)}
 						</IconButton>
 						<Typography className="view-cnt">{agent?.memberLikes}</Typography>
+
 					</Box>
 				</Stack>
+				<Stack sx={{marginTop: '20px',  }}>
+						<Link
+						href={{
+						pathname: '/agent/detail',
+						query: { agentId: agent?._id },
+					}}  >
+					<Button sx={{color: 'white',}}  variant="contained">
+						sdacfsdfcds
+					</Button>
+					</Link>
+						</Stack>
 			</Stack>
 		);
 	}

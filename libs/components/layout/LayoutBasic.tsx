@@ -31,12 +31,12 @@ const withLayoutBasic = (Component: any) => {
 				case '/property':
 					title = 'Property Search';
 					desc = 'We are glad to see you again!';
-					bgImage = '/img/banner/';
+					bgImage = '/img/banner/property-card-backc.jpg';
 					break;
 				case '/agent':
 					title = 'Agents';
 					desc = 'Home / For Rent';
-					bgImage = '/img/banner/agents.webp';
+					bgImage = '/img/banner/property-card-backc.jpg';
 					break;
 				case '/agent/detail':
 					title = 'Agent Page';
@@ -93,8 +93,8 @@ const withLayoutBasic = (Component: any) => {
 			return (
 				<>
 					<Head>
-						<title>Nestar</title>
-						<meta name={'title'} content={`Nestar`} />
+						<title>World-cars</title>
+						<meta name={'title'} content={`World-xars`} />
 					</Head>
 					<Stack id="mobile-wrap">
 						<Stack id={'top'}>
@@ -115,8 +115,8 @@ const withLayoutBasic = (Component: any) => {
 			return (
 				<>
 					<Head>
-						<title>Nestar</title>
-						<meta name={'title'} content={`Nestar`} />
+						<title>World-cars</title>
+						<meta name={'title'} content={`World-cars`} />
 					</Head>
 					<Stack id="pc-wrap">
 						<Stack id={'top'}>

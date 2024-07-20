@@ -11,7 +11,7 @@ import TablePagination from '@mui/material/TablePagination';
 import { PropertyPanelList } from '../../../libs/components/admin/properties/PropertyList';
 import { AllPropertiesInquiry } from '../../../libs/types/property/property.input';
 import { Property } from '../../../libs/types/property/property';
-import { PropertyLocation, PropertyStatus } from '../../../libs/enums/property.enum';
+import { PropertyTypes, PropertyStatus } from '../../../libs/enums/property.enum';
 import { sweetConfirmAlert, sweetErrorHandling } from '../../../libs/sweetAlert';
 import { PropertyUpdate } from '../../../libs/types/property/property.update';
 import { REMOVE_PROPERTY_BY_ADMIN, UPDATE_PROPERTY_BY_ADMIN } from '../../../apollo/admin/mutation';
@@ -30,8 +30,9 @@ const AdminProperties: NextPage = ({ initialInquiry, ...props }: any) => {
 	const [searchType, setSearchType] = useState('ALL');
 
 	/** APOLLO REQUESTS **/
+
 	const [updatePropertyByAdmin] = useMutation(UPDATE_PROPERTY_BY_ADMIN);
-	const [removeePropertyByAdmin] = useMutation(REMOVE_PROPERTY_BY_ADMIN);
+	const [removePropertyByAdmin] = useMutation(REMOVE_PROPERTY_BY_ADMIN);
 	const {
 		loading: getAllPropertiesByAdminLoading,
 		data: getAllPropertiesByAdminData,
@@ -46,6 +47,8 @@ const AdminProperties: NextPage = ({ initialInquiry, ...props }: any) => {
 			setPropertiesTotal(data?.getAllPropertiesByAdmin?.metaCounter[0]?.total ?? 0);
 		},
 	});
+
+	console.log("data",getAllPropertiesByAdminData)
 
 	/** LIFECYCLES **/
 	useEffect(() => {
@@ -99,7 +102,7 @@ const AdminProperties: NextPage = ({ initialInquiry, ...props }: any) => {
 	const removePropertyHandler = async (id: string) => {
 		try {
 			if (await sweetConfirmAlert('Are you sure to remove?')) {
-				await removeePropertyByAdmin({
+				await removePropertyByAdmin({
 					variables: {
 						input: id,
 					},
@@ -123,11 +126,11 @@ const AdminProperties: NextPage = ({ initialInquiry, ...props }: any) => {
 					sort: 'createdAt',
 					search: {
 						...propertiesInquiry.search,
-						propertyLocationList: [newValue as PropertyLocation],
+						propertyTypes: [newValue as PropertyTypes],
 					},
 				});
 			} else {
-				delete propertiesInquiry?.search?.propertyLocationList;
+				delete propertiesInquiry?.search?.propertyTypes;
 				setPropertiesInquiry({ ...propertiesInquiry });
 			}
 		} catch (err: any) {
@@ -196,9 +199,9 @@ const AdminProperties: NextPage = ({ initialInquiry, ...props }: any) => {
 									<MenuItem value={'ALL'} onClick={() => searchTypeHandler('ALL')}>
 										ALL
 									</MenuItem>
-									{Object.values(PropertyLocation).map((location: string) => (
-										<MenuItem value={location} onClick={() => searchTypeHandler(location)} key={location}>
-											{location}
+									{Object.values(PropertyTypes).map((types: string) => (
+										<MenuItem value={types} onClick={() => searchTypeHandler(types)} key={types}>
+											{types}
 										</MenuItem>
 									))}
 								</Select>

@@ -57,13 +57,18 @@ body::-webkit-scrollbar {
 				z-index: 99;
 				align-items: center;
 				border-top: 1px solid rgba(255, 255, 255, 0.07);
-				&.transparent {
-					background-color: #181a209e;
-				}
+
 				.container {
+					border-radius: 20px;
+					background-color: #0002079e;
+					padding: 15px;
+					border:1px solid white;
 					flex-direction: row;
 					align-items: center;
 					justify-content: space-between;
+					&.transparent {
+						background-color: #0002079e;
+					}
 					.logo-box {
 						img {
 							width: 150px;
@@ -71,6 +76,7 @@ body::-webkit-scrollbar {
 						}
 					}
 					.router-box {
+
 						position: relative;
 						width: 617px;
 						display: flex;
@@ -123,6 +129,7 @@ body::-webkit-scrollbar {
 							border: 1px solid #ffffff;
 							cursor: pointer;
 							svg {
+
 								color: #ffffff;
 								margin-right: 10px;
 							}
@@ -136,6 +143,8 @@ body::-webkit-scrollbar {
 							}
 						}
 						.login-user {
+							border-radius:50%;
+							border: 3px solid #87CEEB;
 							img {
 								width: 42px;
 								height: 42px;
@@ -191,8 +200,8 @@ body::-webkit-scrollbar {
 				display: flex;
 				flex-direction: row;
 				justify-content: space-between;
-				background: rgba(255, 255, 255, 0.28);
-				border-radius: 12px;
+				background: #708090;
+				border-radius: 20px;
 				.select-box {
 					width: 712px;
 					display: flex;
@@ -214,17 +223,20 @@ body::-webkit-scrollbar {
 							background: #ffffff;
 							border: 1px solid #000;
 							color: #181a20;
+							border-radius: 10px;
+							border: 1px solid #b9b9b9;
+							box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 						}
 						span {
+
 							color: #181a20;
 							font-family: $font;
-							font-size: 14px;
+							font-size: 20px;
 							font-style: normal;
 							font-weight: 400;
 							line-height: 26px;
 						}
-						svg {
-						}
+
 					}
 				}
 				.search-box-other {
@@ -259,7 +271,7 @@ body::-webkit-scrollbar {
 						align-items: center;
 						justify-content: center;
 						border-radius: 55px;
-						background: #f17742;
+						background: #87CEEB;
 						cursor: pointer;
 						svg {
 							width: 20px;
@@ -281,8 +293,8 @@ body::-webkit-scrollbar {
 					flex-wrap: wrap;
 					gap: 40px;
 					visibility: hidden;
-					border-radius: 12px;
-					background: #ffffff;
+					border-radius: 20px;
+					background: #87CEEB;
 					box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 					box-sizing: border-box;
 					z-index: 2;
@@ -290,12 +302,21 @@ body::-webkit-scrollbar {
 						visibility: visible;
 						transition: 0.2s ease-out;
 						background: #fffdfd;
+						border-radius: 5px;
+						border: 1px solid black;
+						box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 					}
 					div {
 						width: 295px;
 						display: flex;
 						flex-direction: row;
 						align-items: center;
+						padding: 15px;
+						&:hover {
+							border-radius: 5px;
+							border: 1px solid #b9b9b9;
+							box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+						}
 						img {
 							width: 122px;
 							height: 85px;
@@ -308,7 +329,7 @@ body::-webkit-scrollbar {
 							font-family: $font;
 							font-size: 20px;
 							font-style: normal;
-							font-weight: 400;
+							font-weight: 600;
 							line-height: 26px;
 							cursor: pointer;
 							text-transform: capitalize;
@@ -344,7 +365,7 @@ body::-webkit-scrollbar {
 						background: #fffdfd;
 					}
 					div {
-						background-color:#257677;
+
 						position: relative;
 						width: 272px;
 						height: 50px;
@@ -352,9 +373,10 @@ body::-webkit-scrollbar {
 						cursor: pointer;
 						background-size: cover;
 						&:hover {
-							background-color:white;
-							border: 2px solid #257677;
-							}
+							border-radius: 5px;
+							border: 1px solid #b9b9b9;
+							box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+						}
 
 						span {
 							text-align: center ;

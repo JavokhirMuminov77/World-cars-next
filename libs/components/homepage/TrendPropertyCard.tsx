@@ -1,5 +1,5 @@
 import React from 'react';
-import { Stack, Box, Divider, Typography } from '@mui/material';
+import { Stack, Box, Divider, Typography, Button } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
 import useDeviceDetect from '../../hooks/useDeviceDetect';
 import FavoriteIcon from '@mui/icons-material/Favorite';
@@ -57,7 +57,7 @@ const TrendPropertyCard = (props: TrendPropertyCardProps) => {
 							<span>{property.propertyBeds} bed</span>
 						</div> */}
 						<div>
-							<img src="/img/icons/room.svg" alt="" />
+							<img src="/img/icons/seat.png" alt="" />
 							<span>{property.propertySeat} seat</span>
 						</div>
 						<div>
@@ -100,7 +100,7 @@ const TrendPropertyCard = (props: TrendPropertyCardProps) => {
 						pushDetailHandler(property._id);
 					}}
 				>
-					<div>${property.propertyPrice}</div>
+					<div style={{color:'#FF0000'}}>${property.propertyPrice}</div>
 				</Box>
 				<Box component={'div'} className={'info'}>
 					<strong className={'title'} onClick={() => pushDetailHandler(property._id)}>
@@ -108,25 +108,15 @@ const TrendPropertyCard = (props: TrendPropertyCardProps) => {
 					</strong>
 					<p className={'desc'}>{property.propertyDesc ?? 'no description'}</p>
 					<div className={'options'}>
-						{/* <div>
-							<img src="/img/icons/bed.svg" alt="" />
-							<span>{property.propertyBeds} bed</span>
-						</div> */}
-						<div>
-							<img src="/img/icons/room.svg" alt="" />
+						<div style={{ marginTop: '10px'}}>
+							<img src="/img/icons/seat.png" alt=""  width='50' height='50'/>
 							<span>{property.propertySeat} seat</span>
 						</div>
-						<div>
-							<img src="/img/icons/expand.svg" alt="" />
-							<span>{property.propertySize} m2</span>
+						<div style={{ marginTop: '10px'}}>
+							<img src="/img/icons/moshina.jpg" alt="" />
+							<span>{property.propertySize} m</span>
 						</div>
-					</div>
-					<Divider sx={{ mt: '15px', mb: '17px' }} />
-					<div className={'bott'}>
-						<p>
-							{property.propertyRent ? 'Rent' : ''} {property.propertyRent && property.propertyBarter && '/'}{' '}
-							{property.propertyBarter ? 'Barter' : ''}
-						</p>
+						<div>
 						<div className="view-like-box">
 							<IconButton color={'default'}>
 								<RemoveRedEyeIcon />
@@ -140,8 +130,25 @@ const TrendPropertyCard = (props: TrendPropertyCardProps) => {
 								)}
 							</IconButton>
 							<Typography className="view-cnt">{property?.propertyLikes}</Typography>
+
+						</div>
+							{/* <img src="/img/icons/bed.svg" alt="" />
+							<span>{property.propertyBeds} bed</span>*/}
 						</div>
 					</div>
+					<Divider sx={{ mt: '15px', mb: '17px' }} />
+					{/* <div className={'bott'}>
+						<p>
+							{property.propertyRent ? 'Rent' : ''} {property.propertyRent && property.propertyBarter && '/'}{' '}
+							{property.propertyBarter ? 'Barter' : ''}
+						</p>
+
+					</div> */}
+					<Stack sx={{ mt: '5px', mb: '10px', textAlign: 'center', display: 'flex', justifyContent: 'center', background: 'black',  width: '100%', borderRadius: ' 40px'}}>
+						<Button sx={{ background: '#FF0000', color: 'white', }} variant="contained" >
+							<strong>Go It!</strong></Button>
+						</Stack>
+
 				</Box>
 			</Stack>
 		);

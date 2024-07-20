@@ -1,5 +1,5 @@
 import React from 'react';
-import { Stack, Typography, Box } from '@mui/material';
+import { Stack, Typography, Box, Button } from '@mui/material';
 import useDeviceDetect from '../../hooks/useDeviceDetect';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
@@ -39,7 +39,7 @@ const PropertyCard = (props: PropertyCardType) => {
 							query: { id: property?._id },
 						}}
 					>
-						<img src={imagePath} alt="" />
+						<img src={imagePath} alt=""  />
 					</Link>
 					{property && property?.propertyRank > 0 && (
 						<Box component={'div'} className={'top-badge'}>
@@ -47,7 +47,7 @@ const PropertyCard = (props: PropertyCardType) => {
 							<Typography>TOP</Typography>
 						</Box>
 					)}
-					<Box component={'div'} className={'price-box'}>
+					<Box component={'div'} className={'price-box'} sx={{color: 'white'}}>
 						<Typography>${formatterStr(property?.propertyPrice)}</Typography>
 					</Box>
 				</Stack>
@@ -65,7 +65,7 @@ const PropertyCard = (props: PropertyCardType) => {
 						</Stack>
 						<Stack className="address">
 							<Typography>
-								{property.propertyAddress}, {property.propertyLocation}
+								{property.propertyAddress}, {property.propertyTypes}
 							</Typography>
 						</Stack>
 					</Stack>
@@ -74,10 +74,10 @@ const PropertyCard = (props: PropertyCardType) => {
 							{/* <img src="/img/icons/bed.svg" alt="" /> <Typography>{property.propertyBeds} bed</Typography> */}
 						</Stack>
 						<Stack className="option">
-							<img src="/img/icons/room.svg" alt="" /> <Typography>{property.propertySeat} seat</Typography>
+							<img src="/img/icons/seat.png" alt="" width='15' height='15' /> <Typography>{property.propertySeat} seat</Typography>
 						</Stack>
 						<Stack className="option">
-							<img src="/img/icons/expand.svg" alt="" /> <Typography>{property.propertySize} m2</Typography>
+							<img src="/img/icons/moshina.jpg" alt="" width='20 ' height='20' /> <Typography>{property.propertySize} km</Typography>
 						</Stack>
 					</Stack>
 					<Stack className="divider"></Stack>
@@ -114,8 +114,24 @@ const PropertyCard = (props: PropertyCardType) => {
 								<Typography className="view-cnt">{property?.propertyLikes}</Typography>
 							</Stack>
 						)}
+
+
+             <Stack>
+						 <Link
+						href={{
+							pathname: '/property/detail',
+							query: { id: property?._id },
+						}}
+					>
+						<Button href='/detail' sx={{ background: '#FF0000', color: 'white', }} variant="contained" >
+							<strong>Go It!</strong></Button>
+					</Link>
+
+						</Stack>
 					</Stack>
+
 				</Stack>
+
 			</Stack>
 		);
 	}

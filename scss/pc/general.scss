@@ -158,21 +158,30 @@
 	}
 }
 .agent-general-card {
+	box-shadow: rgba(0, 0, 0, 0.45) 0px 25px 20px -20px;
 	position: relative;
 	margin-right: 27px;
 	margin-bottom: 34px;
+	height: auto;
+	padding: 20px;
 	display: flex;
 	flex-direction: column;
+	border: 1px solid black;
+	border-radius: 20px;
+	background:#F5F5F5;
+	text-align: center;
 	.agent-img {
-		border-radius: 12px;
-		width: 233px;
-		height: 273px;
+		padding-bottom: 20px;
+		margin: auto 20px;
+		border-radius: 50%;
+		width: 123px;
+		height: 123px;
 		background-size: 100% 100%;
 		background-repeat: no-repeat;
 		cursor: pointer;
 		div {
 			position: absolute;
-			padding: 12px;
+			padding: 7px;
 			top: 12px;
 			left: 12px;
 			border-radius: 6px;

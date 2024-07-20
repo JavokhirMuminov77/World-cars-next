@@ -13,12 +13,13 @@ import {
 	IconButton,
 } from '@mui/material';
 import useDeviceDetect from '../../hooks/useDeviceDetect';
-import { PropertyLocation, PropertyType } from '../../enums/property.enum';
+import { PropertyTypes, PropertyType } from '../../enums/property.enum';
 import { PropertiesInquiry } from '../../types/property/property.input';
 import { useRouter } from 'next/router';
 import CancelRoundedIcon from '@mui/icons-material/CancelRounded';
 import { propertySquare } from '../../config';
 import RefreshIcon from '@mui/icons-material/Refresh';
+import { isTypeSystemExtensionNode } from 'graphql';
 
 const MenuProps = {
 	PaperProps: {
@@ -38,15 +39,15 @@ const Filter = (props: FilterType) => {
 	const { searchFilter, setSearchFilter, initialInput } = props;
 	const device = useDeviceDetect();
 	const router = useRouter();
-	const [propertyLocation, setPropertyLocation] = useState<PropertyLocation[]>(Object.values(PropertyLocation));
+	const [propertyTypes, setPropertyTypes] = useState<PropertyTypes[]>(Object.values(PropertyTypes));
 	const [propertyType, setPropertyType] = useState<PropertyType[]>(Object.values(PropertyType));
 	const [searchText, setSearchText] = useState<string>('');
 	const [showMore, setShowMore] = useState<boolean>(false);
 
 	/** LIFECYCLES **/
 	useEffect(() => {
-		if (searchFilter?.search?.locationList?.length == 0) {
-			delete searchFilter.search.locationList;
+		if (searchFilter?.search?.typesList?.length == 0) {
+			delete searchFilter.search.typesList;
 			setShowMore(false);
 			router
 				.push(
@@ -151,11 +152,11 @@ const Filter = (props: FilterType) => {
 		// 		.then();
 		// }
 
-		if (searchFilter?.search?.locationList) setShowMore(true);
+		if (searchFilter?.search?.typesList) setShowMore(true);
 	}, [searchFilter]);
 
 	/** HANDLERS **/
-	const propertyLocationSelectHandler = useCallback(
+	const propertyTypesSelectHandler = useCallback(
 		async (e: any) => {
 			try {
 				const isChecked = e.target.checked;
@@ -164,28 +165,28 @@ const Filter = (props: FilterType) => {
 					await router.push(
 						`/property?input=${JSON.stringify({
 							...searchFilter,
-							search: { ...searchFilter.search, locationList: [...(searchFilter?.search?.locationList || []), value] },
+							search: { ...searchFilter.search, typesList: [...(searchFilter?.search?.typesList || []), value] },
 						})}`,
 						`/property?input=${JSON.stringify({
 							...searchFilter,
-							search: { ...searchFilter.search, locationList: [...(searchFilter?.search?.locationList || []), value] },
+							search: { ...searchFilter.search, typesList: [...(searchFilter?.search?.typesList || []), value] },
 						})}`,
 						{ scroll: false },
 					);
-				} else if (searchFilter?.search?.locationList?.includes(value)) {
+				} else if (searchFilter?.search?.typesList?.includes(value)) {
 					await router.push(
 						`/property?input=${JSON.stringify({
 							...searchFilter,
 							search: {
 								...searchFilter.search,
-								locationList: searchFilter?.search?.locationList?.filter((item: string) => item !== value),
+								typesList: searchFilter?.search?.typesList?.filter((item: string) => item !== value),
 							},
 						})}`,
 						`/property?input=${JSON.stringify({
 							...searchFilter,
 							search: {
 								...searchFilter.search,
-								locationList: searchFilter?.search?.locationList?.filter((item: string) => item !== value),
+								typesList: searchFilter?.search?.typesList?.filter((item: string) => item !== value),
 							},
 						})}`,
 						{ scroll: false },
@@ -196,9 +197,9 @@ const Filter = (props: FilterType) => {
 					alert('error');
 				}
 
-				console.log('propertyLocationSelectHandler:', e.target.value);
+				console.log('propertyTypesSelectHandler:', e.target.value);
 			} catch (err: any) {
-				console.log('ERROR, propertyLocationSelectHandler:', err);
+				console.log('ERROR, propertyTypesSelectHandler:', err);
 			}
 		},
 		[searchFilter],
@@ -571,32 +572,32 @@ const Filter = (props: FilterType) => {
 				</Stack>
 				<Stack className={'find-your-home'} mb={'30px'}>
 					<p className={'title'} style={{ textShadow: '0px 3px 4px #b9b9b9' }}>
-						Location
+					Types
 					</p>
 					<Stack
 						className={`property-location`}
 						style={{ height: showMore ? '253px' : '115px' }}
 						onMouseEnter={() => setShowMore(true)}
 						onMouseLeave={() => {
-							if (!searchFilter?.search?.locationList) {
+							if (!searchFilter?.search?.typesList) {
 								setShowMore(false);
 							}
 						}}
 					>
-						{propertyLocation.map((location: string) => {
+						{propertyTypes.map((types: string) => {
 							return (
-								<Stack className={'input-box'} key={location}>
+								<Stack className={'input-box'} key={types}>
 									<Checkbox
-										id={location}
+										id={types}
 										className="property-checkbox"
 										color="default"
 										size="small"
-										value={location}
-										checked={(searchFilter?.search?.locationList || []).includes(location as PropertyLocation)}
-										onChange={propertyLocationSelectHandler}
+										value={types}
+										checked={(searchFilter?.search?.typesList || []).includes(types as PropertyTypes)}
+										onChange={propertyTypesSelectHandler}
 									/>
-									<label htmlFor={location} style={{ cursor: 'pointer' }}>
-										<Typography className="property-type">{location}</Typography>
+									<label htmlFor={types} style={{ cursor: 'pointer' }}>
+										<Typography className="property-type">{types}</Typography>
 									</label>
 								</Stack>
 							);
@@ -691,7 +692,7 @@ const Filter = (props: FilterType) => {
 
 
 				<Stack className={'find-your-home'} mb={'30px'}>
-					<Typography className={'title'}>Cars' size</Typography>
+					<Typography className={'title'}>Km</Typography>
 					<Stack className="button-group">
 						<Button
 							sx={{
@@ -710,7 +711,7 @@ const Filter = (props: FilterType) => {
 							}}
 							onClick={() => propertySizeSelectHandler(1)}
 						>
-							1.5
+							0
 						</Button>
 						<Button
 							sx={{
@@ -720,7 +721,7 @@ const Filter = (props: FilterType) => {
 							}}
 							onClick={() => propertySizeSelectHandler(2)}
 						>
-							2
+							100
 						</Button>
 						<Button
 							sx={{
@@ -730,7 +731,7 @@ const Filter = (props: FilterType) => {
 							}}
 							onClick={() => propertySizeSelectHandler(3)}
 						>
-							2.5
+							200
 						</Button>
 						<Button
 							sx={{
@@ -741,7 +742,7 @@ const Filter = (props: FilterType) => {
 							}}
 							onClick={() => propertySizeSelectHandler(4)}
 						>
-							3
+							300
 						</Button>
 						<Button
 							sx={{
@@ -750,7 +751,7 @@ const Filter = (props: FilterType) => {
 							}}
 							onClick={() => propertySizeSelectHandler(5)}
 						>
-							4.5+
+							500+
 						</Button>
 					</Stack>
 				</Stack>

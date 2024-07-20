@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Stack, Box } from '@mui/material';
+import { Stack, Box, Button } from '@mui/material';
 import useDeviceDetect from '../../hooks/useDeviceDetect';
 import WestIcon from '@mui/icons-material/West';
 import EastIcon from '@mui/icons-material/East';
@@ -66,7 +66,7 @@ const TrendProperties = (props: TrendPropertiesProps) => {
 			<Stack className={'trend-properties'}>
 				<Stack className={'container'}>
 					<Stack className={'info-box'}>
-						<span>Trend Properties</span>
+						<span style={{ color: '#20B2AA'}}>Trend Properties</span>
 					</Stack>
 					<Stack className={'card-box'}>
 						{trendProperties.length === 0 ? (
@@ -98,9 +98,91 @@ const TrendProperties = (props: TrendPropertiesProps) => {
 		return (
 			<Stack className={'trend-properties'}>
 				<Stack className={'container'}>
+
+
+
+				<Stack className={'mashinalar-qatori'}>
+		         			<div className={'mashinalar'}>
+
+		         					<div className={'chaptagi-mashina'}>
+
+		         			<aside className={'layout-2-1-sidebar-item sidebar-ad-link'}>
+
+                  <video
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  preload="auto"
+                  style={{ width: '1000px', height: '756px', objectFit: 'cover',borderRadius: '50px' }}
+                 >
+                 <source src="/video/mecadess.mp4" type="video/mp4" />
+
+                 </video>
+
+                   </aside>
+		         						</div>
+		         						<div className={'chi-qator'}>
+		         						<div className={'card '}>
+		         							<div className={'card-textlari '}>
+		         							<aside className={'layout-2-1-sidebar-item sidebar-ad-link'}>
+                   <video className='videolar'
+                   autoPlay
+                   muted
+                   loop
+                   playsInline
+                   preload="auto"
+                   style={{ width: '293px', height: '250px', objectFit: 'cover', borderRadius: '50px' }}
+                 >
+
+                   <source src="/video/audi.mp4" type="video/mp4" />
+
+                 </video>
+
+
+                   </aside>
+			          						</div>
+			          						<div className={'card-textlari '}>
+			          						<aside className={'layout-2-1-sidebar-item sidebar-ad-link'}>
+                   <video className='videolar'
+                   autoPlay
+                   muted
+                   loop
+                   playsInline
+                   preload="auto"
+                   style={{ width: '293px', height: '250px', objectFit: 'cover', borderRadius: '50px'}}
+                 >
+                   <source src="/video/codillac.mp4" type="video/mp4" />
+                 </video>
+
+               </aside>
+									</div>
+									<div className={'card-textlari '}>
+									<aside className={'layout-2-1-sidebar-item sidebar-ad-link'}>
+                  <video className='videolar'
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  preload="auto"
+                  style={{ width: '293px', height: '250px', objectFit: 'cover' ,borderRadius: '50px' }}
+                >
+                  <source src="/video/bmw.mp4" type="video/mp4" />
+                </video>
+
+                  </aside>
+									</div>
+
+								</div>
+
+							</div>
+						</div>
+
+					</Stack>
+
 					<Stack className={'info-box'}>
 						<Box component={'div'} className={'left'}>
-							<span>Trend Properties</span>
+							<span >Trend Properties</span>
 							<p>Trend is based on likes</p>
 						</Box>
 						<Box component={'div'} className={'right'}>
@@ -111,7 +193,14 @@ const TrendProperties = (props: TrendPropertiesProps) => {
 							</div>
 						</Box>
 					</Stack>
+
+
+
+
+
+
 					<Stack className={'card-box'}>
+
 						{trendProperties.length === 0 ? (
 							<Box component={'div'} className={'empty-list'}>
 								Trends Empty

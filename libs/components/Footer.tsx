@@ -74,24 +74,16 @@ const Footer = () => {
 					<Stack className={'left'}>
 						<Box component={'div'} className={'footer-box'}>
 							<img src="/img/logo/logoWhite.svg" alt="" className={'logo'} />
-						</Box>
-						<Box component={'div'} className={'footer-box'}>
-							<span>total free customer care</span>
-							<p>+82 10 4867 2909</p>
-						</Box>
-						<Box component={'div'} className={'footer-box'}>
-							<span>nee live</span>
-							<p>+82 10 4867 2909</p>
-							<span>Support?</span>
-						</Box>
-						<Box component={'div'} className={'footer-box'}>
-							<p>follow us on social media</p>
+						<div>
+							<p style={{marginTop: '20px'}}>follow us on social media</p>
 							<div className={'media-box'}>
 								<FacebookOutlinedIcon />
 								<TelegramIcon />
 								<InstagramIcon />
 								<TwitterIcon />
 							</div>
+						</div>
+
 						</Box>
 					</Stack>
 					<Stack className={'right'}>
@@ -102,7 +94,7 @@ const Footer = () => {
 								<span>Subscribe</span>
 							</div>
 						</Box>
-						<Box component={'div'} className={'bottom'}>
+						{/* <Box component={'div'} className={'bottom'}>
 							<div>
 								<strong>Popular Search</strong>
 								<span>Property for Rent</span>
@@ -124,7 +116,7 @@ const Footer = () => {
 								<span>Busan</span>
 								<span>Jejudo</span>
 							</div>
-						</Box>
+						</Box> */}
 					</Stack>
 				</Stack>
 				<Stack className={'second'}>

@@ -7,7 +7,7 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import { propertySquare, propertyYears } from '../../config';
-import { PropertyLocation, PropertyType } from '../../enums/property.enum';
+import { PropertyTypes, PropertyType } from '../../enums/property.enum';
 import { PropertiesInquiry } from '../../types/property/property.input';
 import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
@@ -43,15 +43,15 @@ const HeaderFilter = (props: HeaderFilterProps) => {
 	const device = useDeviceDetect();
 	const { t, i18n } = useTranslation('common');
 	const [searchFilter, setSearchFilter] = useState<PropertiesInquiry>(initialInput);
-	const locationRef: any = useRef();
+	const typesRef: any = useRef();
 	const typeRef: any = useRef();
 	const sizeRef: any = useRef();
 	const router = useRouter();
 	const [openAdvancedFilter, setOpenAdvancedFilter] = useState(false);
-	const [openLocation, setOpenLocation] = useState(false);
+	const [openTypes, setOpenTypes] = useState(false);
 	const [openType, setOpenType] = useState(false);
 	const [openSize, setOpenSize] = useState(false);
-	const [propertyLocation, setPropertyLocation] = useState<PropertyLocation[]>(Object.values(PropertyLocation));
+	const [propertyTypes, setPropertyTypes] = useState<PropertyTypes[]>(Object.values(PropertyTypes));
 	const [propertyType, setPropertyType] = useState<PropertyType[]>(Object.values(PropertyType));
 	const [yearCheck, setYearCheck] = useState({ start: 1970, end: thisYear });
 	const [optionCheck, setOptionCheck] = useState('all');
@@ -59,8 +59,8 @@ const HeaderFilter = (props: HeaderFilterProps) => {
 	/** LIFECYCLES **/
 	useEffect(() => {
 		const clickHandler = (event: MouseEvent) => {
-			if (!locationRef?.current?.contains(event.target)) {
-				setOpenLocation(false);
+			if (!typesRef?.current?.contains(event.target)) {
+				setOpenTypes(false);
 			}
 
 			if (!typeRef?.current?.contains(event.target)) {
@@ -81,49 +81,49 @@ const HeaderFilter = (props: HeaderFilterProps) => {
 
 	/** HANDLERS **/
 	const advancedFilterHandler = (status: boolean) => {
-		setOpenLocation(false);
+		setOpenTypes(false);
 		 setOpenSize(false);
 		setOpenType(false);
 		setOpenAdvancedFilter(status);
 	};
 
-	const locationStateChangeHandler = () => {
-		setOpenLocation((prev) => !prev);
+	const typesStateChangeHandler = () => {
+		setOpenTypes((prev) => !prev);
 		 setOpenSize(false);
 		setOpenType(false);
 	};
 
 	const typeStateChangeHandler = () => {
 		setOpenType((prev) => !prev);
-		setOpenLocation(false);
+		setOpenTypes(false);
 		setOpenSize(false);
 	};
 
 	const seattateChangeHandler = () => {
 		setOpenSize((prev) => !prev);
 		setOpenType(false);
-		setOpenLocation(false);
+		setOpenTypes(false);
 	};
 
 	const disableAllStateHandler = () => {
 		setOpenSize(false);
 		setOpenType(false);
-		setOpenLocation(false);
+		setOpenTypes(false);
 	};
 
-	const propertyLocationSelectHandler = useCallback(
+	const propertyTypesSelectHandler = useCallback(
 		async (value: any) => {
 			try {
 				setSearchFilter({
 					...searchFilter,
 					search: {
 						...searchFilter.search,
-						locationList: [value],
+						typesList: [value],
 					},
 				});
 				typeStateChangeHandler();
 			} catch (err: any) {
-				console.log('ERROR, propertyLocationSelectHandler:', err);
+				console.log('ERROR, propertyTypesSelectHandler:', err);
 			}
 		},
 		[searchFilter],
@@ -285,8 +285,8 @@ const HeaderFilter = (props: HeaderFilterProps) => {
 
 	const pushSearchHandler = async () => {
 		try {
-			if (searchFilter?.search?.locationList?.length == 0) {
-				delete searchFilter.search.locationList;
+			if (searchFilter?.search?.typesList?.length == 0) {
+				delete searchFilter.search.typesList;
 			}
 
 			if (searchFilter?.search?.typeList?.length == 0) {
@@ -321,8 +321,8 @@ const HeaderFilter = (props: HeaderFilterProps) => {
 			<>
 				<Stack className={'search-box'}>
 					<Stack className={'select-box'}>
-						<Box component={'div'} className={`box ${openLocation ? 'on' : ''}`} onClick={locationStateChangeHandler}>
-							<span>{searchFilter?.search?.locationList ? searchFilter?.search?.locationList[0] : t('Location')} </span>
+						<Box component={'div'} className={`box ${openTypes ? 'on' : ''}`} onClick={typesStateChangeHandler}>
+							<span>{searchFilter?.search?.typesList ? searchFilter?.search?.typesList[0] : t('Types')} </span>
 							<ExpandMoreIcon />
 						</Box>
 						<Box className={`box ${openType ? 'on' : ''}`} onClick={typeStateChangeHandler}>
@@ -347,12 +347,12 @@ const HeaderFilter = (props: HeaderFilterProps) => {
 					</Stack>
 
 					{/*MENU */}
-					<div className={`filter-location ${openLocation ? 'on' : ''}`} ref={locationRef}>
-						{propertyLocation.map((location: string) => {
+					<div className={`filter-location ${openTypes ? 'on' : ''}`} ref={typesRef}>
+						{propertyTypes.map((types: string) => {
 							return (
-								<div onClick={() => propertyLocationSelectHandler(location)} key={location}>
-									<img src={`/cities/${location}.webp`} alt="" />
-									<span>{location}</span>
+								<div onClick={() => propertyTypesSelectHandler(types)} key={types}>
+
+									<span>{types}</span>
 								</div>
 							);
 						})}

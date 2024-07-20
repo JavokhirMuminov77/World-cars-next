@@ -32,8 +32,8 @@
 
   .trend-properties {
     padding: 0px 10px;
+    height: 100%;
     width: 100%;
-    height: auto;
     display: flex;
     flex-direction: row;
     .container {
@@ -46,7 +46,7 @@
         flex-direction: row;
         .empty-list {
           width: 100%;
-          height: 280px;
+          height: 300px;
           display: flex;
           justify-content: center;
           align-items: center;
@@ -69,7 +69,7 @@
               .card-img {
                 position: relative;
                 width: 100%;
-                height: 203px;
+                height: 250px;
                 background-size: cover;
                 border-radius: 12px 12px 0px 0px;
                 cursor: pointer;
@@ -151,6 +151,7 @@
                   flex-direction: row;
                   justify-content: space-between;
                   align-items: center;
+                  margin-top: 0px;
                   p {
                     color: #181a20;
                     font-family: $font;
@@ -161,6 +162,7 @@
                     text-transform: capitalize;
                   }
                   button {
+
                     margin-left: 7px;
                     width: 16px;
                     height: 16px;
@@ -746,30 +748,39 @@
   }
 
   #footer {
-    position: relative;
-    padding: 60px 0px 18px 0px;
+
     width: 100%;
-    height: auto;
+    height: 400px;
     display: flex;
-    flex-direction: row;
-    background: #181a20;
+
+    background: #FF0000;
+
     .footer-container {
+      display: flex;
+
+
       padding: 0 10px;
       margin: 0 auto;
       width: 1300px;
       height: auto;
       .main {
         display: flex;
-        flex-direction: column;
+
+
         .left {
-          height: 360px;
+          width: 100%;
+          height: auto;
           display: flex;
-          flex-direction: column;
-          justify-content: space-between;
+
+
+
           .footer-box {
+            width: 100%;
             display: flex;
-            flex-direction: column;
+
+
             .logo {
+              margin-bottom: 50px;
               width: 128px;
               height: 52px;
               cursor: pointer;

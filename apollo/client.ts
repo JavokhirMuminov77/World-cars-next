@@ -88,7 +88,7 @@ function createIsomorphicLink() {
 		const errorLink = onError(({ graphQLErrors, networkError, response }) => {
 			if (graphQLErrors) {
 				graphQLErrors.map(({ message, locations, path, extensions }) => {
-					console.log(`[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`);
+					console.log(`[GraphQL error]: Message: ${message}, Locations: ${locations}, Path: ${path}`);
 					if (!message.includes('input')) sweetErrorAlert(message);
 				});
 			}

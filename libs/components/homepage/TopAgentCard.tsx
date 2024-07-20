@@ -1,6 +1,6 @@
 import React from 'react';
 import { useRouter } from 'next/router';
-import { Stack } from '@mui/material';
+import { Button, Stack } from '@mui/material';
 import useDeviceDetect from '../../hooks/useDeviceDetect';
 import { Member } from '../../types/member/member';
 
@@ -23,16 +23,20 @@ const TopAgentCard = (props: TopAgentProps) => {
 				<img src={agentImage} alt="" />
 
 				<strong>{agent?.memberNick}</strong>
+				<img src="/img/yulduz.jpg" alt="" />
 				<span>{agent?.memberType}</span>
 			</Stack>
 		);
 	} else {
 		return (
 			<Stack className="top-agent-card">
+
 				<img src={agentImage} alt="" />
 
 				<strong>{agent?.memberNick}</strong>
 				<span>{agent?.memberType}</span>
+				<img src='/img/yuldiz.webp' alt=""  width='50' height='20' />
+
 			</Stack>
 		);
 	}

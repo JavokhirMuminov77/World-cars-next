@@ -12,6 +12,7 @@
 				align-items: center;
 				z-index: 2;
 				button {
+
 					margin-left: 10px;
 					color: #181a20;
 					font-family: $font;
@@ -38,8 +39,7 @@
 						padding: 30px 24px;
 						border-radius: 12px;
 						background: #fff;
-						box-shadow: 0 1px 4px 0 rgba(24, 26, 32, 0.07);
-						.find-your-home {
+						box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;						.find-your-home {
 							position: relative;
 							width: 100%;
 							gap: 10px;
@@ -202,10 +202,12 @@
 					}
 				}
 				.main-config {
+
 					width: 936px;
 					align-items: center;
 					gap: 109px;
 					.list-config {
+
 						display: flex;
 						width: 100%;
 						height: auto;
@@ -218,7 +220,7 @@
 							margin-bottom: 7px;
 							border-radius: 12px;
 							background: #fff;
-							box-shadow: 0px 1px 4px 0px rgba(24, 26, 32, 0.07);
+							box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
 							.top {
 								position: relative;
 								width: 100%;
@@ -258,12 +260,12 @@
 								}
 								.price-box {
 									position: absolute;
-									bottom: 20px;
+									bottom: 10px;
 									left: 20px;
 									padding: 8px 15px;
 									align-items: center;
 									border-radius: 6px;
-									border: 1px solid rgba(255, 255, 255, 0.5);
+									border: 1px solid black;
 									background: #fff;
 									p {
 										color: #181a20;

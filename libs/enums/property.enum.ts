@@ -18,14 +18,15 @@ export enum PropertyStatus {
 	DELETE = 'DELETE',
 }
 
-export enum PropertyLocation {
-	SEOUL = 'SEOUL',
-	BUSAN = 'BUSAN',
-	INCHEON = 'INCHEON',
-	DAEGU = 'DAEGU',
-	GYEONGJU = 'GYEONGJU',
-	GWANGJU = 'GWANGJU',
-	CHONJU = 'CHONJU',
-	DAEJON = 'DAEJON',
-	JEJU = 'JEJU',
+export enum PropertyTypes {
+	ECONOM = 'ECONOM',
+	COMPACT = 'COMPACT',
+	MIDSIZE = 'MIDSIZE',
+	STANDARD = 'STANDARD',
+	FULLSIZE = 'FULLSIZE',
+	REMUMP = 'REMUMP ',
+	LUXURY = 'LUXURY',
+	VAN = 'VAN',
+	SPORTURILITY = 'SPORTURILITY',
+	CONVERTIBLE = 'CONVERTIBLE',
 }

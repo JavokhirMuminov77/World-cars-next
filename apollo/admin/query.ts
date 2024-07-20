@@ -49,7 +49,7 @@ export const GET_ALL_PROPERTIES_BY_ADMIN = gql`
 				_id
 				propertyType
 				propertyStatus
-				propertyLocation
+				propertyTypes
 				propertyAddress
 				propertyTitle
 				propertyPrice

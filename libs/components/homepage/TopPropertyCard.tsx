@@ -1,5 +1,5 @@
 import React from 'react';
-import { Stack, Box, Divider, Typography } from '@mui/material';
+import { Stack, Box, Divider, Typography, Button } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
 import useDeviceDetect from '../../hooks/useDeviceDetect';
 import FavoriteIcon from '@mui/icons-material/Favorite';
@@ -120,12 +120,12 @@ const TopPropertyCard = (props: TopPropertyCardProps) => {
 							<span>{property?.propertyBeds} bed</span>
 						</div> */}
 						<div>
-							<img src="/img/icons/room.svg" alt="" />
+							<img src="/img/icons/seat.png" alt="" />
 							<span>{property?.propertySeat} seat</span>
 						</div>
 						<div>
-							<img src="/img/icons/expand.svg" alt="" />
-							<span>{property?.propertySize} m2</span>
+							<img src="/img/icons/moshina.jpg" alt="" />
+							<span>{property?.propertySize} m</span>
 						</div>
 					</div>
 					<Divider sx={{ mt: '15px', mb: '17px' }} />

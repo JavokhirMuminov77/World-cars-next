@@ -122,12 +122,12 @@ const PopularPropertyCard = (props: PopularPropertyCardProps) => {
 							<span>{property?.propertyBeds} bed</span>
 						</div> */}
 						<div>
-							<img src="/img/icons/room.svg" alt="" />
+							<img src="/img/icons/seat.png" alt="" />
 							<span>{property?.propertySeat} seat</span>
 						</div>
 						<div>
-							<img src="/img/icons/expand.svg" alt="" />
-							<span>{property?.propertySize} m2</span>
+							<img src="/img/icons/moshina.jpg" alt="" />
+							<span>{property?.propertySize} m</span>
 						</div>
 					</div>
 					<Divider sx={{ mt: '15px', mb: '17px' }} />
