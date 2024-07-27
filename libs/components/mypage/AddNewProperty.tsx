@@ -344,7 +344,7 @@ const AddProperty = ({ initialValues, ...props }: any) => {
 									<img src={'/img/icons/Vector.svg'} className={'arrow-down'} />
 								</Stack>
 								<Stack className="price-year-after-price">
-									<Typography className="title">Size</Typography>
+									<Typography className="title">Km</Typography>
 									<select
 										className={'select-description'}
 										value={insertPropertyData.propertySize || 'select'}

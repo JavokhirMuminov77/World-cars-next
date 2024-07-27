@@ -29,26 +29,31 @@ const tokenRefreshLink = new TokenRefreshLink({
 	},
 });
 
+// Custom WebSocket client
 class LoggingWebSocket {
 	private socket: WebSocket;
+
 	constructor(url: string) {
 		this.socket = new WebSocket(`${url}?token=${getJwtToken()}`);
 		socketVar(this.socket);
+
 		this.socket.onopen = () => {
 			console.log('WebSocket connection!');
 		};
+
 		this.socket.onmessage = (msg) => {
-			console.log('WebSocket message: ', msg.data);
+			console.log('WebSocket message:', msg.data);
 		};
 
 		this.socket.onerror = (error) => {
-			console.log('WebSocket error: ', error);
+			console.log('WebSocket, error:', error);
 		};
 	}
 
 	send(data: string | ArrayBuffer | SharedArrayBuffer | Blob | ArrayBufferView) {
 		this.socket.send(data);
 	}
+
 	close() {
 		this.socket.close();
 	}
@@ -88,7 +93,7 @@ function createIsomorphicLink() {
 		const errorLink = onError(({ graphQLErrors, networkError, response }) => {
 			if (graphQLErrors) {
 				graphQLErrors.map(({ message, locations, path, extensions }) => {
-					console.log(`[GraphQL error]: Message: ${message}, Locations: ${locations}, Path: ${path}`);
+					console.log(`[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`);
 					if (!message.includes('input')) sweetErrorAlert(message);
 				});
 			}

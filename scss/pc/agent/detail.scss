@@ -275,7 +275,7 @@
 				.leave-review-config {
 					margin-top: 15px;
 					border-radius: 12px;
-					background: #fff;
+					background: #E0FFFF;
 					box-shadow: 0px 1px 4px 0px rgba(24, 26, 32, 0.07);
 					padding: 30px 38px;
 					.main-title {
@@ -310,13 +310,14 @@
 						line-height: 26px;
 					}
 					.submit-btn {
+
 						width: 100%;
 						display: flex;
 						justify-content: flex-end;
 						button:disabled {
-							background: #dfdfdf;
+							background: white;
 						}
-						.submit-review {
+						.submit-review {background:red;
 							display: flex;
 							width: 256px;
 							margin-top: 30px;

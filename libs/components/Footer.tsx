@@ -73,7 +73,8 @@ const Footer = () => {
 				<Stack className={'main'}>
 					<Stack className={'left'}>
 						<Box component={'div'} className={'footer-box'}>
-							<img src="/img/logo/logoWhite.svg" alt="" className={'logo'} />
+							<h1 style={{color: 'white'}}>World-cars</h1>
+							{/* <img src="/img/logo/logoWhite.svg" alt="" className={'logo'} /> */}
 						<div>
 							<p style={{marginTop: '20px'}}>follow us on social media</p>
 							<div className={'media-box'}>
