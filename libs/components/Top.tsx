@@ -232,6 +232,7 @@ const Top = () => {
 
 							<div className={'lan-box'}>
 								{user?._id && <NotificationsOutlinedIcon className={'notification-icon'} />}
+
 								<Button
 									disableRipple
 									className="btn-lang"

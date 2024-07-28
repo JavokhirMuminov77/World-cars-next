@@ -246,12 +246,12 @@ const CommunityDetail: NextPage = ({ initialInput, ...props }: T) => {
 				<div className="container">
 					<Stack className="main-box">
 						<Stack className="left-config">
-							<Stack className={'image-info'}>
-								<img src={'/img/logo/logoText.svg'} />
-								<Stack className={'community-name'}>
-									<Typography className={'name'}>Community Board Article</Typography>
+						<Stack className={'image-info'}>
+									<img src={'/img/banner/logo.jpg'} />
+									<Stack className={'community-name'}>
+										<Typography className={'name'}>World-cars Community</Typography>
+									</Stack>
 								</Stack>
-							</Stack>
 							<Tabs
 								orientation="vertical"
 								aria-label="lab API tabs example"

@@ -94,7 +94,7 @@ const withLayoutBasic = (Component: any) => {
 				<>
 					<Head>
 						<title>World-cars</title>
-						<meta name={'title'} content={`World-xars`} />
+						<meta name={'title'} content={`World-cars`} />
 					</Head>
 					<Stack id="mobile-wrap">
 						<Stack id={'top'}>

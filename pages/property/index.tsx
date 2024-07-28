@@ -225,13 +225,13 @@ PropertyList.defaultProps = {
 		direction: 'DESC',
 		search: {
 			// squaresRange: {
-			// 	start: 0,
-			// 	end: 500,
+			// 	// start: 0,
+			// 	// end: 500,
 			// },
-			pricesRange: {
-				start: 0,
-				end: 2000000,
-			},
+			// pricesRange: {
+			// 	start: 0,
+			// 	end: 2000000,
+			// },
 		},
 	},
 };
