@@ -166,7 +166,10 @@ const Top = () => {
 					<Stack className={'container'}>
 						<Box component={'div'} className={'logo-box'}>
 							<Link href={'/'}>
-								<img src="/img/logo/logoWhite.svg" alt="" />
+								{/* <img src="/img/logo/logoWhite.svg" alt="" /> */}
+								<h1 style={{
+									color:'white',
+								}}>World-cars</h1>
 							</Link>
 						</Box>
 						<Box component={'div'} className={'router-box'}>
@@ -221,7 +224,10 @@ const Top = () => {
 							) : (
 								<Link href={'/account/join'}>
 									<div className={'join-box'}>
-										<AccountCircleOutlinedIcon />
+										<div style={{marginLeft:'40px'}}>
+											<AccountCircleOutlinedIcon sx={{marginLeft: '40px'}} />
+										</div>
+
 										<span>
 											{t('Login')} / {t('Register')}
 										</span>
@@ -230,7 +236,7 @@ const Top = () => {
 							)}
 
 							<div className={'lan-box'}>
-								{user?._id && <BasicPopover />}
+								{user?._id && <BasicPopover   />}
 								<Button
 									disableRipple
 									className="btn-lang"

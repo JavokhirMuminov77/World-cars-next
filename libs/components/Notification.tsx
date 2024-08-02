@@ -9,7 +9,7 @@ import { useState } from 'react';
 import { userVar } from '../../apollo/store';
 import { Notification } from '../types/notification/notification';
 import { Badge, Box, Button, Stack } from '@mui/material';
-import AccessibleIcon from '@mui/icons-material/Accessible';
+// import AccessibleIcon from '@mui/icons-material/Accessible';
 import { NotificationStatus } from '../enums/notification.enum';
 
 const BasicPopover = () => {

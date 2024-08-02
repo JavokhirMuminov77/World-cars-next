@@ -346,3 +346,13 @@ export const CREATE_MESSAGE = gql`
 		}
 	}
 `;
+
+/**************************
+ *      NOTIFICATION      *
+ *************************/
+
+export const MARK_NOTIFICATION_READ = gql`
+	mutation MarkNotificationAsRead($notificationId: String!) {
+		markNotificationAsRead(notificationId: $notificationId)
+	}
+`;
