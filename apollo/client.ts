@@ -29,34 +29,34 @@ const tokenRefreshLink = new TokenRefreshLink({
 	},
 });
 
-// Custom WebSocket client
+//Custom WebSocket client
 class LoggingWebSocket {
-	private socket: WebSocket;
+  private socket: WebSocket;
 
-	constructor(url: string) {
-		this.socket = new WebSocket(`${url}?token=${getJwtToken()}`);
-		socketVar(this.socket);
+  constructor(url: string) {
+    this.socket = new WebSocket(`${url}?token${getJwtToken()}`);
+    socketVar(this.socket);
 
-		this.socket.onopen = () => {
-			console.log('WebSocket connection!');
-		};
+    this.socket.onopen = () => {
+      console.log("WebSocket connection!");
+    };
 
-		this.socket.onmessage = (msg) => {
-			console.log('WebSocket message:', msg.data);
-		};
+    this.socket.onmessage = (msg) => {
+      console.log("WebSocket message:", msg.data);
+    };
 
-		this.socket.onerror = (error) => {
-			console.log('WebSocket, error:', error);
-		};
-	}
+    this.socket.onerror = (error) => {
+      console.log("WebSocket error:", error);
+    };
+  }
 
-	send(data: string | ArrayBuffer | SharedArrayBuffer | Blob | ArrayBufferView) {
-		this.socket.send(data);
-	}
+  send(data: string | ArrayBuffer | SharedArrayBuffer | Blob | ArrayBufferView) {
+    this.socket.send(data);
+  }
 
-	close() {
-		this.socket.close();
-	}
+  close() {
+    this.socket.close();
+  }
 }
 
 function createIsomorphicLink() {
@@ -79,7 +79,7 @@ function createIsomorphicLink() {
 
 		/* WEBSOCKET SUBSCRIPTION LINK */
 		const wsLink = new WebSocketLink({
-			uri: process.env.REACT_APP_API_WS ?? 'ws://127.0.0.1:3007',
+			uri: process.env.REACT_APP_API_WS ?? 'ws://127.0.0.1:7007',
 			options: {
 				reconnect: false,
 				timeout: 30000,
@@ -87,15 +87,16 @@ function createIsomorphicLink() {
 					return { headers: getHeaders() };
 				},
 			},
-			webSocketImpl: LoggingWebSocket,
+
+      webSocketImpl: LoggingWebSocket
 		});
 
 		const errorLink = onError(({ graphQLErrors, networkError, response }) => {
 			if (graphQLErrors) {
 				graphQLErrors.map(({ message, locations, path, extensions }) => {
-					console.log(`[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`);
-					if (!message.includes('input')) sweetErrorAlert(message);
-				});
+          console.log(`[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`);
+          if(!message.includes('input')) sweetErrorAlert(message);
+        });
 			}
 			if (networkError) console.log(`[Network error]: ${networkError}`);
 			// @ts-ignore
@@ -137,3 +138,20 @@ export function initializeApollo(initialState = null) {
 export function useApollo(initialState: any) {
 	return useMemo(() => initializeApollo(initialState), [initialState]);
 }
+
+/**
+import { ApolloClient, InMemoryCache, createHttpLink } from "@apollo/client";
+
+// No Subscription required for develop process
+
+const httpLink = createHttpLink({
+  uri: "http://localhost:7007/graphql",
+});
+
+const client = new ApolloClient({
+  link: httpLink,
+  cache: new InMemoryCache(),
+});
+
+export default client;
+*/
