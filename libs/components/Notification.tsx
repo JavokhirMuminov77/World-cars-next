@@ -11,11 +11,11 @@ import { Badge, Box, Button, Stack } from '@mui/material';
 import { NotificationStatus } from '../enums/notification.enum';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
-import dayjs from 'dayjs';
+// import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import { MARK_NOTIFICATION_READ } from '../../apollo/user/mutation';
-dayjs.extend(relativeTime);
-dayjs.locale('ko');
+// dayjs.extend(relativeTime);
+// dayjs.locale('ko');
 
 export default function BasicPopover() {
 	const user = useReactiveVar(userVar);
@@ -123,7 +123,7 @@ export default function BasicPopover() {
 									<Typography>{ele.notificationTitle}</Typography>
 									<Typography>{ele.notificationDesc}</Typography>
 									<Typography variant="body2" color="textSecondary">
-										{dayjs(ele.createdAt).fromNow()}
+										{/* {dayjs(ele.createdAt).fromNow()} */}
 									</Typography>
 								</div>
 							</Stack>
