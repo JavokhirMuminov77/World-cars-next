@@ -1,35 +1,34 @@
 import * as React from 'react';
 import Popover from '@mui/material/Popover';
 import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
 import NotificationsOutlinedIcon from '@mui/icons-material/NotificationsOutlined';
 import { useMutation, useQuery, useReactiveVar } from '@apollo/client';
-import { GET_NOTIFICATIONS } from '../../apollo/user/query';
-import { T } from '../types/common';
-import { Notification } from '../types/notification/notification';
-import { userVar } from '../../apollo/store';
-import { Badge, Box, Button, Stack } from '@mui/material';
-import { NotificationStatus } from '../enums/notification.enum';
+import { GET_NOTIFICATIONS, MARK_NOTIFICATION_READ } from '../../../apollo/user/query';
+import { T } from '../../types/common';
+import { Notification } from '../../types/notification/notification';
+import { userVar } from '../../../apollo/store';
+import { Badge, Stack } from '@mui/material';
+import { NotificationStatus } from '../../enums/notification.enum';
 import { useRouter } from 'next/router';
-import Link from 'next/link';
-// import dayjs from 'dayjs';
-// import relativeTime from 'dayjs/plugin/relativeTime';
-import { MARK_NOTIFICATION_READ } from '../../apollo/user/mutation';
-// dayjs.extend(relativeTime);
-// dayjs.locale('ko');
+import dayjs from 'dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime';
+dayjs.extend(relativeTime);
+dayjs.locale('ko');
 
 export default function BasicPopover() {
 	const user = useReactiveVar(userVar);
 	const router = useRouter();
 	const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
 	const [notification, setNotification] = React.useState<Notification[]>([]);
-	const handleClick = (event: React.MouseEvent<HTMLButtonElement>, notificationId: string) => {
+	const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
 		setAnchorEl(event.currentTarget);
-		// markNotificationsAsRead();
+		if (notification.length > 0) {
+		}
 	};
-
 	const [markNotificationAsRead] = useMutation(MARK_NOTIFICATION_READ, {
 		onCompleted: () => {
-			getNotificationsRefetch(); // 성공적으로 업데이트 후 알림 다시 가져오기
+			getNotificationsRefetch(); // Re-import notifications after successful update
 		},
 		onError: (error) => {
 			console.error('Error updating notifications:', error);
@@ -92,44 +91,66 @@ export default function BasicPopover() {
 				}
 				color="secondary"
 			>
-				<NotificationsOutlinedIcon style={{ cursor: 'pointer' }} onClick={handleClick} />
+				<Button onClick={(event: any) => handleClick(event)} style={{ padding: 0, minWidth: 0 }}>
+					<NotificationsOutlinedIcon style={{ cursor: 'pointer', color: 'white' }} />
+				</Button>
 			</Badge>
-
 			<Popover
-				sx={{ marginTop: 5 }}
-				style={{ height: '500px',}}
+				sx={{
+					marginTop: 5, 
+				}}
+				style={{
+					maxHeight: '500px',
+					width: '600px',
+					borderRadius: '10px', 
+				}}
 				id={id}
 				open={open}
 				anchorEl={anchorEl}
 				onClose={handleClose}
 				anchorOrigin={{
 					vertical: 'bottom',
-					horizontal: 'left',
+					horizontal: 'right',
 				}}
 			>
-				{notification?.map((ele: Notification) => {
-					if (ele.receiverId === user._id) {
-						return (
-							<Stack key={ele._id} sx={{ m: 3, cursor: 'pointer',  background:'#F8F8FF'  }} onClick={() => handleClickRead(ele)}>
-								<div
-									style={{
-										background: ele.notificationStatus === NotificationStatus.READ ? '#ADD8E6' : '#E0FFFF',
-										padding: '15px',
-										borderRadius: '15px',
-										border: '1px solid black',
-										width: '400px',
-									}}
-								>
-									<Typography>{ele.notificationTitle}</Typography>
-									<Typography>{ele.notificationDesc}</Typography>
-									<Typography variant="body2" color="textSecondary">
-										{/* {dayjs(ele.createdAt).fromNow()} */}
-									</Typography>
-								</div>
-							</Stack>
-						);
-					}
-				})}
+				{notification.filter((ele) => ele.receiverId === user._id).length > 0 ? (
+					notification?.map((ele: Notification) => {
+						if (ele.receiverId === user._id) {
+							return (
+								<Stack key={ele._id} sx={{ m: 3, cursor: 'pointer' }} onClick={() => handleClickRead(ele)}>
+									<div
+										style={{
+											background: ele.notificationStatus === NotificationStatus.READ ? '#e0dfdf' : '#EEF1FB',
+											padding: '15px',
+											borderRadius: '10px',
+											width: '450px',
+										}}
+									>
+										<Typography>{ele.notificationTitle}</Typography>
+										<Typography>{ele.notificationDesc}</Typography>
+										<Typography variant="body2" color="textSecondary">
+											{dayjs(ele.createdAt).fromNow()}
+										</Typography>
+									</div>
+								</Stack>
+							);
+						}
+					})
+				) : (
+					<Stack
+						sx={{
+							m: 3,
+							width: '400px',
+							height: '100px',
+							justifyContent: 'center',
+							alignItems: 'center',
+							borderRadius: '10px',
+              backgroundColor: '#EEF1FB'
+						}}
+					>
+						<Typography>No notifications</Typography>
+					</Stack>
+				)}
 			</Popover>
 		</div>
 	);

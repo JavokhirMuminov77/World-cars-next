@@ -17,7 +17,7 @@ import { useReactiveVar } from '@apollo/client';
 import { userVar } from '../../apollo/store';
 import { Logout } from '@mui/icons-material';
 import { REACT_APP_API_URL } from '../config';
-import BasicPopover from './Notification';
+import BasicPopover from './notification/Notification';
 
 const Top = () => {
 	const device = useDeviceDetect();
