@@ -10,12 +10,11 @@ import { useRouter } from 'next/router';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { Member } from '../../libs/types/member/member';
 import { useMutation, useQuery } from '@apollo/client';
-import { LIKE_TARGET_MEMBER, LIKE_TARGET_PROPERTY } from '../../apollo/user/mutation';
-import { GET_AGENTS, GET_PROPERTIES } from '../../apollo/user/query';
+import { GET_AGENTS } from '../../apollo/user/query';
 import { T } from '../../libs/types/common';
-import { Message } from '../../libs/enums/common.enum';
-import { Messages } from '../../libs/config';
+import { LIKE_TARGET_MEMBER } from '../../apollo/user/mutation';
 import { sweetMixinErrorAlert, sweetTopSmallSuccessAlert } from '../../libs/sweetAlert';
+import { Messages } from '../../libs/config';
 
 export const getStaticProps = async ({ locale }: any) => ({
 	props: {
@@ -37,9 +36,9 @@ const AgentList: NextPage = ({ initialInput, ...props }: any) => {
 	const [total, setTotal] = useState<number>(0);
 	const [currentPage, setCurrentPage] = useState<number>(1);
 	const [searchText, setSearchText] = useState<string>('');
-
 	/** APOLLO REQUESTS **/
 	const [likeTargetMember] = useMutation(LIKE_TARGET_MEMBER);
+
 	const {
 		loading: getAgentsLoading,
 		data: getAgentsData,
@@ -54,6 +53,7 @@ const AgentList: NextPage = ({ initialInput, ...props }: any) => {
 			setTotal(data?.getAgents?.metaCounter[0]?.total);
 		},
 	});
+
 	/** LIFECYCLES **/
 	useEffect(() => {
 		if (router.query.input) {
@@ -113,14 +113,15 @@ const AgentList: NextPage = ({ initialInput, ...props }: any) => {
 			if (!user._id) throw new Error(Messages.error2);
 
 			await likeTargetMember({
-				variables: { input: id },
+				variables: {
+					input: id,
+				},
 			});
 
 			await getAgentsRefetch({ input: searchFilter });
-
 			await sweetTopSmallSuccessAlert('success', 800);
 		} catch (err: any) {
-			console.log('Error, likePropertyHandler', err.message);
+			console.log('ERROR, likeMemberHandler:', err.message);
 			sweetMixinErrorAlert(err.message).then();
 		}
 	};
@@ -183,6 +184,7 @@ const AgentList: NextPage = ({ initialInput, ...props }: any) => {
 							})
 						)}
 					</Stack>
+
 					<Stack className={'pagination'}>
 						<Stack className="pagination-box">
 							{agents.length !== 0 && Math.ceil(total / searchFilter.limit) > 1 && (

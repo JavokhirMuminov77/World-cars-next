@@ -246,12 +246,13 @@ const CommunityDetail: NextPage = ({ initialInput, ...props }: T) => {
 				<div className="container">
 					<Stack className="main-box">
 						<Stack className="left-config">
-						<Stack className={'image-info'}>
-									<img src={'/img/banner/logo.jpg'} />
-									<Stack className={'community-name'}>
-										<Typography className={'name'}>World-cars Community</Typography>
-									</Stack>
+							<Stack className={'image-info'}>
+							<img src="/img/banner.logo1.jpg" alt="" />
+
+								<Stack className={'community-name'}>
+									<Typography className={'name'}>Community Board Article</Typography>
 								</Stack>
+							</Stack>
 							<Tabs
 								orientation="vertical"
 								aria-label="lab API tabs example"
@@ -422,7 +423,7 @@ const CommunityDetail: NextPage = ({ initialInput, ...props }: T) => {
 																<DeleteForeverIcon sx={{ color: '#757575', cursor: 'pointer' }} />
 															</IconButton>
 															<IconButton
-																onClick={(e) => {
+																onClick={(e: any) => {
 																	setUpdatedComment(commentData?.commentContent);
 																	setUpdatedCommentWordsCnt(commentData?.commentContent?.length);
 																	setUpdatedCommentId(commentData?._id);

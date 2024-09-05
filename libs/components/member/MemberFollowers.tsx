@@ -16,12 +16,12 @@ interface MemberFollowsProps {
 	initialInput: FollowInquiry;
 	subscribeHandler: any;
 	unsubscribeHandler: any;
-	redirectToMemberPageHandler: any;
 	likeMemberHandler: any;
+	redirectToMemberPageHandler: any;
 }
 
 const MemberFollowers = (props: MemberFollowsProps) => {
-	const { initialInput, subscribeHandler, unsubscribeHandler, redirectToMemberPageHandler, likeMemberHandler } = props;
+	const { initialInput, subscribeHandler, unsubscribeHandler, likeMemberHandler, redirectToMemberPageHandler } = props;
 	const device = useDeviceDetect();
 	const router = useRouter();
 	const [total, setTotal] = useState<number>(0);
@@ -113,15 +113,15 @@ const MemberFollowers = (props: MemberFollowsProps) => {
 										{follower?.meLiked && follower?.meLiked[0]?.myFavorite ? (
 											<FavoriteIcon
 												color="primary"
-												onClick={() => {
-													likeMemberHandler(follower?.followerData?._id, getMemberFollowersRefetch, followInquiry);
-												}}
+												onClick={() =>
+													likeMemberHandler(follower?.followerData?._id, getMemberFollowersRefetch, followInquiry)
+												}
 											/>
 										) : (
 											<FavoriteBorderIcon
-												onClick={() => {
-													likeMemberHandler(follower?.followerData?._id, getMemberFollowersRefetch, followInquiry);
-												}}
+												onClick={() =>
+													likeMemberHandler(follower?.followerData?._id, getMemberFollowersRefetch, followInquiry)
+												}
 											/>
 										)}
 										<span>({follower?.followerData?.memberLikes})</span>

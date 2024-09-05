@@ -72,19 +72,29 @@ const Footer = () => {
 			<Stack className={'footer-container'}>
 				<Stack className={'main'}>
 					<Stack className={'left'}>
+
 						<Box component={'div'} className={'footer-box'}>
-							<h1 style={{color: 'white'}}>World-cars</h1>
+							<h1>World-cars</h1>
 							{/* <img src="/img/banner/logo.jpg" alt="" className={'logo'} /> */}
-						<div>
-							<p style={{marginTop: '20px'}}>follow us on social media</p>
+
+						</Box>
+						<Box component={'div'} className={'footer-box'}>
+							<span>total free customer care</span>
+							<p>+82 10 2426 4544</p>
+						</Box>
+						<Box component={'div'} className={'footer-box'}>
+							<span>nee live</span>
+							<p>+82 10 5658 9693</p>
+							
+						</Box>
+						<Box component={'div'} className={'footer-box'}>
+							<p>follow us on social media</p>
 							<div className={'media-box'}>
 								<FacebookOutlinedIcon />
 								<TelegramIcon />
 								<InstagramIcon />
 								<TwitterIcon />
 							</div>
-						</div>
-
 						</Box>
 					</Stack>
 					<Stack className={'right'}>
@@ -95,7 +105,7 @@ const Footer = () => {
 								<span>Subscribe</span>
 							</div>
 						</Box>
-						{/* <Box component={'div'} className={'bottom'}>
+						<Box component={'div'} className={'bottom'}>
 							<div>
 								<strong>Popular Search</strong>
 								<span>Property for Rent</span>
@@ -117,12 +127,10 @@ const Footer = () => {
 								<span>Busan</span>
 								<span>Jejudo</span>
 							</div>
-						</Box> */}
+						</Box>
 					</Stack>
 				</Stack>
 				<Stack className={'second'}>
-					<span>© Nestar - All rights reserved. Nestar {moment().year()}</span>
-					<span>Privacy · Terms · Sitemap</span>
 				</Stack>
 			</Stack>
 		);

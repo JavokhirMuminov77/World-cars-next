@@ -168,6 +168,7 @@
 						}
 					}
 					.trend-card-box {
+
 						position: relative;
 						width: 300px;
 						height: 375px;
@@ -194,8 +195,8 @@
 								left: 12px;
 								bottom: 12px;
 								border-radius: 6px;
-								background: #fff;
-								color: #181a20;
+								background: #FF4500;
+								color: white;
 								font-family: $font;
 								font-size: 15px;
 								font-style: normal;
@@ -537,12 +538,15 @@
 						}
 					}
 					.top-card-box {
+						box-shadow: rgba(0, 0, 0, 0.1) 0px 20px 25px -5px, rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;
 						position: relative;
 						width: 300px;
 						height: 375px;
 						display: flex;
 						flex-direction: column;
 						transition: transform 0.3s;
+						border:1px solid #D3D3D3;
+						border-radius:20px;
 						&:hover {
 							opacity: 1;
 							transform: scale(1.05);
@@ -560,8 +564,8 @@
 								left: 12px;
 								bottom: 12px;
 								border-radius: 6px;
-								background: #fff;
-								color: #181a20;
+								background: #FF4500;
+								color: white;
 								font-family: $font;
 								font-size: 15px;
 								font-style: normal;
@@ -727,9 +731,10 @@
 							}
 						}
 						.top-agent-card {
+							box-shadow: rgba(0, 0, 0, 0.2) 0px 60px 40px -7px;
 							background-color:white;
 							padding: 15px;
-							border: 1px solid black;
+							border: 1px solid #DCDCDC;
 							text-align: center;
 							width: 205px;
 							height: 250px;

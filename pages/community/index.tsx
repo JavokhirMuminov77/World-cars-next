@@ -185,7 +185,7 @@ const Community: NextPage = ({ initialInput, ...props }: T) => {
 												})
 											) : (
 												<Stack className={'no-data'}>
-													<img src="/img/icons/icoAlert.svg" alt="" />
+													<img src="/img/banner" alt="" />
 													<p>No Article found!</p>
 												</Stack>
 											)}
@@ -205,7 +205,7 @@ const Community: NextPage = ({ initialInput, ...props }: T) => {
 												})
 											) : (
 												<Stack className={'no-data'}>
-													<img src="/img/icons/icoAlert.svg" alt="" />
+													<img src="/img/banner.logo1.jpg" alt="" />
 													<p>No Article found!</p>
 												</Stack>
 											)}
