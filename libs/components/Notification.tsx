@@ -12,7 +12,7 @@ import { NotificationStatus } from '../enums/notification.enum';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 // import dayjs from 'dayjs';
-import relativeTime from 'dayjs/plugin/relativeTime';
+// import relativeTime from 'dayjs/plugin/relativeTime';
 import { MARK_NOTIFICATION_READ } from '../../apollo/user/mutation';
 // dayjs.extend(relativeTime);
 // dayjs.locale('ko');
