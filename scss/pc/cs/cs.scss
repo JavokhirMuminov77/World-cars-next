@@ -49,9 +49,9 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            border: 1px solid #808080;
+            border: 1px solid #EEE;
             cursor: pointer;
-            color: #808080;
+            color: #BDBDBD;
             font-family: $font;
             font-size: 14px;
             font-style: normal;
@@ -59,8 +59,8 @@
             line-height: normal;
             letter-spacing: 0.42px;
             &.active {
-              border: 1px solid red;
-              background: #e92C28;
+              border: 1px solid #725CE8;
+              background: #EB6753;
               color: #FFF;
             }
           }
@@ -88,9 +88,7 @@
         }
         .notice-content {
           .main {
-            border-radius:20px;
-            border: 2px solid #808080;
-
+            border: 1px solid #EEE;
             .top {
               padding: 25px 33px;
               display: flex;
@@ -107,24 +105,18 @@
               }
             }
             .bottom {
-
               display: flex;
               flex-direction: column;
               .notice-card {
-                // background:#F5FFFA;
                 padding: 20px 14px 20px 30px;
                 display: flex;
                 flex-direction: row;
                 justify-content: space-between;
                 border: 1px solid #EEE;
-                border-bottom-right-radius:20px;
-                border-bottom-left-radius:20px;
-
                 &.event {
                   background: #F6D79A;
                 }
                 div {
-
                   padding: 6px 9px;
                   border-radius: 12px;
                   border: 1px solid #EB6753;
@@ -135,10 +127,9 @@
                   font-weight: 400;
                 }
                 .notice-number {
-
                   margin-left: 18px;
                   width: 39px;
-                  color: #808080;
+                  color: #BDBDBD;
                   font-family: $font;
                   font-size: 14px;
                   font-style: normal;
@@ -182,7 +173,7 @@
               display: flex;
               justify-content: center;
               align-items: center;
-              color: #808080;
+              color: #BDBDBD;
               text-align: center;
               font-family: $font;
               font-size: 15px;
@@ -192,10 +183,8 @@
               letter-spacing: -0.225px;
               cursor: pointer;
               &.active {
-                border: 1px solid #EB6753;
-                border-radius:20px;
-                background: #e92C28;
-                color: white;
+                border-bottom: 1px solid #EB6753;
+                color: #EB6753;
               }
             }
           }
@@ -209,9 +198,9 @@
               margin: 0 24px;
               display: inline-block;
               padding: 4px 10px;
-              border: 1px solid red;
+              border: 1px solid #725CE8;
               border-radius: 7px;
-              // color: #725CE8;
+              color: #725CE8;
             }
             .question {
               .badge {
@@ -220,15 +209,13 @@
               }
             }
             .answer {
-              border-radius:20px;
               margin-left: 80px;
               display: flex;
               white-space: nowrap;
               align-items: center;
               flex-direction: row;
               .badge {
-                color: white;
-                background:#e92C28;
+                color: #EB6753;
                 border: 1px solid #EB6753;
               }
             }

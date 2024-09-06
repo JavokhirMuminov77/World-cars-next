@@ -100,7 +100,7 @@ const TrendPropertyCard = (props: TrendPropertyCardProps) => {
 						pushDetailHandler(property._id);
 					}}
 				>
-					<div >${property.propertyPrice}</div>
+					<div style={{color:'#FF0000'}}>${property.propertyPrice}</div>
 				</Box>
 				<Box component={'div'} className={'info'}>
 					<strong className={'title'} onClick={() => pushDetailHandler(property._id)}>
@@ -132,11 +132,18 @@ const TrendPropertyCard = (props: TrendPropertyCardProps) => {
 							<Typography className="view-cnt">{property?.propertyLikes}</Typography>
 
 						</div>
-
+							{/* <img src="/img/icons/bed.svg" alt="" />
+							<span>{property.propertyBeds} bed</span>*/}
 						</div>
 					</div>
 					<Divider sx={{ mt: '15px', mb: '17px' }} />
+					{/* <div className={'bott'}>
+						<p>
+							{property.propertyRent ? 'Rent' : ''} {property.propertyRent && property.propertyBarter && '/'}{' '}
+							{property.propertyBarter ? 'Barter' : ''}
+						</p>
 
+					</div> */}
 					<Stack sx={{ mt: '5px', mb: '10px', textAlign: 'center', display: 'flex', justifyContent: 'center', background: 'black',  width: '100%', borderRadius: ' 40px'}}>
 						<Button sx={{ background: '#FF0000', color: 'white', }} variant="contained" >
 							<strong>Go It!</strong></Button>

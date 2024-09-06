@@ -43,40 +43,41 @@ export const GET_AGENTS = gql`
 `;
 
 export const GET_MEMBER = gql(`
-	query GetMember($input: String!) {
-   getMember(memberId: $input) {
-	   _id
-	   memberType
-	   memberStatus
-	   memberAuthType
-	   memberPhone
-	   memberNick
-	   memberFullName
-	   memberImage
-	   memberAddress
-	   memberDesc
-	   memberProperties
-	   memberArticles
-	   memberPoints
-	   memberLikes
-	   memberViews
-	   memberFollowings
-			   memberFollowers
-	   memberRank
-	   memberWarnings
-	   memberBlocks
-	   deletedAt
-	   createdAt
-	   updatedAt
-	   accessToken
-	   meFollowed {
-				   followingId
-				   followerId
-				   myFollowing
-			   }
-   }
+query GetMember($input: String!) {
+    getMember(memberId: $input) {
+        _id
+        memberType
+        memberStatus
+        memberAuthType
+        memberPhone
+        memberNick
+        memberFullName
+        memberImage
+        memberAddress
+        memberDesc
+        memberProperties
+        memberArticles
+        memberPoints
+        memberLikes
+        memberViews
+        memberFollowings
+				memberFollowers
+        memberRank
+        memberWarnings
+        memberBlocks
+        deletedAt
+        createdAt
+        updatedAt
+        accessToken
+        meFollowed {
+					followingId
+					followerId
+					myFollowing
+				}
+    }
 }
 `);
+
 /**************************
  *        PROPERTY        *
  *************************/
@@ -500,6 +501,7 @@ export const GET_COMMENTS = gql`
 		}
 	}
 `;
+
 /**************************
  *         FOLLOW        *
  *************************/
@@ -512,15 +514,15 @@ export const GET_MEMBER_FOLLOWERS = gql`
 				followerId
 				createdAt
 				updatedAt
-				meFollowed {
-					followingId
-					followerId
-					myFollowing
-				}
 				meLiked {
 					memberId
 					likeRefId
 					myFavorite
+				}
+				meFollowed {
+					followingId
+					followerId
+					myFollowing
 				}
 				followerData {
 					_id
@@ -535,19 +537,18 @@ export const GET_MEMBER_FOLLOWERS = gql`
 					memberDesc
 					memberProperties
 					memberArticles
-					memberFollowers
-					memberFollowings
 					memberPoints
 					memberLikes
 					memberViews
 					memberComments
+					memberFollowings
+					memberFollowers
 					memberRank
 					memberWarnings
 					memberBlocks
 					deletedAt
 					createdAt
 					updatedAt
-					accessToken
 				}
 			}
 			metaCounter {
@@ -579,12 +580,12 @@ export const GET_MEMBER_FOLLOWINGS = gql`
 					memberDesc
 					memberProperties
 					memberArticles
-					memberFollowers
-					memberFollowings
 					memberPoints
 					memberLikes
 					memberViews
 					memberComments
+					memberFollowings
+					memberFollowers
 					memberRank
 					memberWarnings
 					memberBlocks
@@ -592,60 +593,21 @@ export const GET_MEMBER_FOLLOWINGS = gql`
 					createdAt
 					updatedAt
 					accessToken
-					meLiked {
-						memberId
-						likeRefId
-						myFavorite
-					}
-					meFollowed {
-						followingId
-						followerId
-						myFollowing
-					}
+				}
+				meLiked {
+					memberId
+					likeRefId
+					myFavorite
+				}
+				meFollowed {
+					followingId
+					followerId
+					myFollowing
 				}
 			}
 			metaCounter {
 				total
 			}
-		}
-	}
-`;
-
-export const GET_NOTIFICATIONS = gql`
-	query GetNotificationsByUserId($userId: String!) {
-		getNotificationsByUserId(userId: $userId) {
-			_id
-			notificationType
-			notificationStatus
-			notificationGroup
-			notificationTitle
-			notificationDesc
-			authorId
-			receiverId
-			propertyId
-			articleId
-			createdAt
-		}
-	}
-`;
-
-
-
-export const MARK_NOTIFICATION_READ = gql`
-	mutation MarkNotificationAsRead($notificationId: String!) {
-		markNotificationAsRead(notificationId: $notificationId)
-	}
-`;
-
-export const GET_NOTICE = gql`
-	query GetNotice {
-		getNotice {
-			_id
-			noticeCategory
-			noticeStatus
-			noticeTitle
-			noticeContent
-			createdAt
 		}
 	}
 `;

@@ -17,7 +17,7 @@ import { useReactiveVar } from '@apollo/client';
 import { userVar } from '../../apollo/store';
 import { Logout } from '@mui/icons-material';
 import { REACT_APP_API_URL } from '../config';
-import BasicPopover from './notification/Notification';
+import BasicPopover from './Notification';
 
 const Top = () => {
 	const device = useDeviceDetect();
@@ -176,7 +176,7 @@ const Top = () => {
 								<div>{t('Home')}</div>
 							</Link>
 							<Link href={'/property'}>
-								<div>{t('Cars')}</div>
+								<div>{t('Properties')}</div>
 							</Link>
 							<Link href={'/agent'}>
 								<div> {t('Agents')} </div>
@@ -232,8 +232,7 @@ const Top = () => {
 							)}
 
 							<div className={'lan-box'}>
-							{user?._id && <BasicPopover />}
-
+								{user?._id && <NotificationsOutlinedIcon className={'notification-icon'} />}
 
 								<Button
 									disableRipple

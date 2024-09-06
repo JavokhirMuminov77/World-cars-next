@@ -36,9 +36,7 @@ const MyProperties: NextPage = ({ initialInput, ...props }: any) => {
 	});
 
 	/** LIFECYCLES **/
-	useEffect(() => {
-		getPropertiesRefetch().then();
-	}, [searchFilter]);
+	useEffect(() => {}, [searchFilter]);
 
 	useEffect(() => {
 		if (memberId)
@@ -92,9 +90,7 @@ const MyProperties: NextPage = ({ initialInput, ...props }: any) => {
 									/>
 								</Stack>
 								<Stack className="total-result">
-									<Typography>
-										{total} propert{total > 1 ? 'ies' : 'y'} available
-									</Typography>
+									<Typography>{total} property available</Typography>
 								</Stack>
 							</Stack>
 						)}

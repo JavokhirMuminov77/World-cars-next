@@ -29,7 +29,7 @@ const withLayoutBasic = (Component: any) => {
 
 			switch (router.pathname) {
 				case '/property':
-					title = 'Car Search';
+					title = 'Property Search';
 					desc = 'We are glad to see you again!';
 					bgImage = '/img/banner/property-card-backc.jpg';
 					break;
@@ -41,7 +41,7 @@ const withLayoutBasic = (Component: any) => {
 				case '/agent/detail':
 					title = 'Agent Page';
 					desc = 'Home / For Rent';
-					bgImage = '/img/banner/property-card-backc.jpg';
+					bgImage = '/img/banner/header3.jpg';
 					break;
 				case '/mypage':
 					title = 'my page';
@@ -66,13 +66,13 @@ const withLayoutBasic = (Component: any) => {
 				case '/account/join':
 					title = 'Login/Signup';
 					desc = 'Authentication Process';
-					bgImage = '/img/banner/property-card-backc.jpg';
+					bgImage = '/img/banner/header3.jpg';
 					setAuthHeader(true);
 					break;
 				case '/member':
 					title = 'Member Page';
 					desc = 'Home / For Rent';
-					bgImage = '/img/banner/property-card-backc.jpg';
+					bgImage = '/img/banner/header1.svg';
 					break;
 				default:
 					break;

@@ -39,7 +39,7 @@ const TuiEditor = () => {
 				'operations',
 				JSON.stringify({
 					query: `mutation ImageUploader($file: Upload!, $target: String!) {
-						imageUploader(file: $file, target: $target) 
+						imageUploader(file: $file, target: $target)
 				  }`,
 					variables: {
 						file: null,
@@ -184,7 +184,7 @@ const TuiEditor = () => {
 				<Button
 					variant="contained"
 					color="primary"
-					style={{ margin: '30px', width: '250px', height: '45px', color: 'white' }}
+					style={{ margin: '30px', width: '250px', height: '45px' }}
 					onClick={handleRegisterButton}
 				>
 					Register

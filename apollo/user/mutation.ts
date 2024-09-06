@@ -325,33 +325,3 @@ export const UNSUBSCRIBE = gql`
 		}
 	}
 `;
-
-
-
-/**************************
- *         COMMENT        *
- *************************/
-
-export const CREATE_MESSAGE = gql`
-	mutation CreateMessage($input: ContactInput!) {
-		createMessage(input: $input) {
-			_id
-			name
-			phone
-			email
-			message
-			contactRefId
-			memberId
-		}
-	}
-`;
-
-/**************************
- *      NOTIFICATION      *
- *************************/
-
-export const MARK_NOTIFICATION_READ = gql`
-	mutation MarkNotificationAsRead($notificationId: String!) {
-		markNotificationAsRead(notificationId: $notificationId)
-	}
-`;

@@ -12,7 +12,6 @@ export interface TotalCounter {
 }
 
 export interface Property {
-	propertyCategories: any;
 	propertyLocation: any;
 	_id: string;
 	propertyType: PropertyType;

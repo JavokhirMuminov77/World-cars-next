@@ -6,10 +6,6 @@ import { useRouter } from 'next/router';
 import { styled } from '@mui/material/styles';
 import useDeviceDetect from '../../hooks/useDeviceDetect';
 import KeyboardArrowDownRoundedIcon from '@mui/icons-material/KeyboardArrowDownRounded';
-import { useQuery } from '@apollo/client';
-import { GET_FAQ } from '../../../apollo/admin/query';
-import { Faqs } from '../../types/faq/faq';
-import { FaqCategory } from '../../enums/faq.enum';
 
 const Accordion = styled((props: AccordionProps) => <MuiAccordion disableGutters elevation={0} square {...props} />)(
 	({ theme }) => ({
@@ -37,28 +33,14 @@ const AccordionSummary = styled((props: AccordionSummaryProps) => (
 const Faq = () => {
 	const device = useDeviceDetect();
 	const router = useRouter();
-	const [category, setCategory] = useState<FaqCategory>(FaqCategory.PROPERTY);
+	const [category, setCategory] = useState<string>('property');
 	const [expanded, setExpanded] = useState<string | false>('panel1');
 
 	/** APOLLO REQUESTS **/
-
-	const {
-		loading: getCommentsLoading,
-		data: getFaqData,
-		error: getCommentsError,
-		refetch: getCommentsRefetch,
-	} = useQuery(GET_FAQ, {
-		fetchPolicy: 'cache-and-network',
-		variables: {
-			input: '',
-		},
-	});
-
-	console.log('getFaqData', getFaqData?.getFaq);
 	/** LIFECYCLES **/
 
 	/** HANDLERS **/
-	const changeCategoryHandler = (category: FaqCategory) => {
+	const changeCategoryHandler = (category: string) => {
 		setCategory(category);
 	};
 
@@ -81,7 +63,7 @@ const Faq = () => {
 			{
 				id: '00f5a45ed8897f8090116a21',
 				subject: 'How can I search for properties on your website?',
-				content: 'Simply use our search bar to enter location, price range, bedrooms/bathrooms, and property type.',
+				content: 'Simply use our search bar to enter types, price range, bedrooms/bathrooms, and property type.',
 			},
 			{
 				id: '00f5a45ed8897f8090116a23',
@@ -91,7 +73,7 @@ const Faq = () => {
 			{
 				id: '00f5a45ed8897f8090116a24',
 				subject: 'What should I consider when buying a property?',
-				content: 'Location, condition, size, amenities, and future development plans.',
+				content: 'types, condition, size, amenities, and future development plans.',
 			},
 			{
 				id: '00f5a45ed8897f8090116a25',
@@ -198,7 +180,7 @@ const Faq = () => {
 				id: '00f5a45ed8897f8090116a83',
 				subject: 'What factors should I consider when choosing a neighborhood?',
 				content:
-					'Consider factors such as location, safety, schools, amenities, transportation, and future development plans.',
+					'Consider factors such as types, safety, schools, amenities, transportation, and future development plans.',
 			},
 			{
 				id: '00f5a45ed8897f8090116a82',
@@ -458,103 +440,82 @@ const Faq = () => {
 			<Stack className={'faq-content'}>
 				<Box className={'categories'} component={'div'}>
 					<div
-						className={category === 'PROPERTY' ? 'active' : ''}
+						className={category === 'property' ? 'active' : ''}
 						onClick={() => {
-							changeCategoryHandler(FaqCategory.PROPERTY);
+							changeCategoryHandler('property');
 						}}
 					>
 						Property
 					</div>
 					<div
-						className={category === 'PAYMENT' ? 'active' : ''}
+						className={category === 'payment' ? 'active' : ''}
 						onClick={() => {
-							changeCategoryHandler(FaqCategory.PAYMENT);
+							changeCategoryHandler('payment');
 						}}
 					>
 						Payment
 					</div>
 					<div
-						className={category === 'FOR_BUYERS' ? 'active' : ''}
+						className={category === 'buyers' ? 'active' : ''}
 						onClick={() => {
-							changeCategoryHandler(FaqCategory.FOR_BUYERS);
+							changeCategoryHandler('buyers');
 						}}
 					>
 						Foy Buyers
 					</div>
 					<div
-						className={category === 'FOR_AGENTS' ? 'active' : ''}
+						className={category === 'agents' ? 'active' : ''}
 						onClick={() => {
-							changeCategoryHandler(FaqCategory.FOR_AGENTS);
+							changeCategoryHandler('agents');
 						}}
 					>
 						For Agents
 					</div>
 					<div
-						className={category === 'MEMBERSHIP' ? 'active' : ''}
+						className={category === 'membership' ? 'active' : ''}
 						onClick={() => {
-							changeCategoryHandler(FaqCategory.MEMBERSHIP);
+							changeCategoryHandler('membership');
 						}}
 					>
 						Membership
 					</div>
 					<div
-						className={category === 'COMMUNITY' ? 'active' : ''}
+						className={category === 'community' ? 'active' : ''}
 						onClick={() => {
-							changeCategoryHandler(FaqCategory.COMMUNITY);
+							changeCategoryHandler('community');
 						}}
 					>
 						Community
 					</div>
 					<div
-						className={category === 'OTHER' ? 'active' : ''}
+						className={category === 'other' ? 'active' : ''}
 						onClick={() => {
-							changeCategoryHandler(FaqCategory.OTHER);
+							changeCategoryHandler('other');
 						}}
 					>
 						Other
 					</div>
 				</Box>
 				<Box className={'wrap'} component={'div'}>
-					{getFaqData?.getFaq
-						.filter((ele: Faqs) => ele.faqCategory === category)
-						.map((ele: Faqs) => (
-							<Accordion expanded={expanded === ele._id} onChange={handleChange(ele._id)} key={ele.faqQuestion}>
+					{data[category] &&
+						data[category].map((ele: any) => (
+							<Accordion expanded={expanded === ele?.id} onChange={handleChange(ele?.id)} key={ele?.subject}>
 								<AccordionSummary id="panel1d-header" className="question" aria-controls="panel1d-content">
 									<Typography className="badge" variant={'h4'}>
 										Q
 									</Typography>
-									<Typography> {ele.faqQuestion}</Typography>
+									<Typography> {ele?.subject}</Typography>
 								</AccordionSummary>
 								<AccordionDetails>
 									<Stack className={'answer flex-box'}>
 										<Typography className="badge" variant={'h4'} color={'primary'}>
 											A
 										</Typography>
-										<Typography> {ele.faqAnswer}</Typography>
+										<Typography> {ele?.content}</Typography>
 									</Stack>
 								</AccordionDetails>
 							</Accordion>
 						))}
-
-					{/* {getFaqData?.getFaq[category] &&
-						getFaqData?.getFaq[category].map((ele: Faqs) => (
-							<Accordion expanded={expanded === ele._id} onChange={handleChange(ele._id)} key={ele.faqQuestion}>
-								<AccordionSummary id="panel1d-header" className="question" aria-controls="panel1d-content">
-									<Typography className="badge" variant={'h4'}>
-										Q
-									</Typography>
-									<Typography> {ele.faqQuestion}</Typography>
-								</AccordionSummary>
-								<AccordionDetails>
-									<Stack className={'answer flex-box'}>
-										<Typography className="badge" variant={'h4'} color={'primary'}>
-											A
-										</Typography>
-										<Typography> {ele.faqAnswer}</Typography>
-									</Stack>
-								</AccordionDetails>
-							</Accordion>
-						))} */}
 				</Box>
 			</Stack>
 		);

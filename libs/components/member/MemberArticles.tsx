@@ -10,8 +10,8 @@ import { BoardArticlesInquiry } from '../../types/board-article/board-article.in
 import { useMutation, useQuery } from '@apollo/client';
 import { GET_BOARD_ARTICLES } from '../../../apollo/user/query';
 import { LIKE_TARGET_BOARD_ARTICLE } from '../../../apollo/user/mutation';
-import { Messages } from '../../config';
 import { sweetMixinErrorAlert, sweetTopSmallSuccessAlert } from '../../sweetAlert';
+import { Messages } from '../../config';
 
 const MemberArticles: NextPage = ({ initialInput, ...props }: any) => {
 	const device = useDeviceDetect();
@@ -48,7 +48,6 @@ const MemberArticles: NextPage = ({ initialInput, ...props }: any) => {
 	const paginationHandler = (e: T, value: number) => {
 		setSearchFilter({ ...searchFilter, page: value });
 	};
-
 	const likeArticleHandler = async (e: any, user: any, id: string) => {
 		try {
 			e.stopPropagation();
@@ -64,7 +63,6 @@ const MemberArticles: NextPage = ({ initialInput, ...props }: any) => {
 			sweetMixinErrorAlert(err.message).then();
 		}
 	};
-
 	if (device === 'mobile') {
 		return <div>MEMBER ARTICLES MOBILE</div>;
 	} else {
@@ -85,8 +83,8 @@ const MemberArticles: NextPage = ({ initialInput, ...props }: any) => {
 					{memberBoArticles?.map((boardArticle: BoardArticle) => {
 						return (
 							<CommunityCard
-								boardArticle={boardArticle}
 								likeArticleHandler={likeArticleHandler}
+								boardArticle={boardArticle}
 								key={boardArticle?._id}
 								size={'small'}
 							/>
