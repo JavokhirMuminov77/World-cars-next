@@ -10,14 +10,15 @@ services:
       - PORT=3000
 
     volumes:
-      - ./:/usr/src/world-cars-next
+     - ./:/usr/src/world-cars-next
     working_dir: /usr/src/world-cars-next
 
     networks:
       - client-network
+      
 
     # for production
-    command: bash -c "yarn && yarn run build && yarn run start"
+  command: bash -c "yarn && yarn run build && yarn run start"
 
 networks:
   client-network:
