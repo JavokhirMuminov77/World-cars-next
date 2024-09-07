@@ -36,6 +36,7 @@ const NewMessage = (type: any) => {
 		);
 	}
 };
+
 interface MessagePayload {
 	event: string;
 	text: string;
@@ -45,7 +46,7 @@ interface MessagePayload {
 interface InfoPayload {
 	event: string;
 	totalClients: number;
-	memeberData: Member;
+	memberData: Member;
 	action: string;
 }
 
@@ -61,11 +62,11 @@ const Chat = () => {
 	const socket = useReactiveVar(socketVar);
 
 	/** LIFECYCLES **/
-
 	useEffect(() => {
 		socket.onmessage = (msg) => {
 			const data = JSON.parse(msg.data);
-			console.log('Websocket message:', data);
+			console.log('WebSocket message:', data);
+
 			switch (data.event) {
 				case 'info':
 					const newInfo: InfoPayload = data;
@@ -83,6 +84,7 @@ const Chat = () => {
 			}
 		};
 	}, [socket, messagesList]);
+
 	useEffect(() => {
 		const timeoutId = setTimeout(() => {
 			setOpenButton(true);
@@ -135,10 +137,10 @@ const Chat = () => {
 			<Stack className={`chat-frame ${open ? 'open' : ''}`}>
 				<Box className={'chat-top'} component={'div'}>
 					<div style={{ fontFamily: 'Nunito' }}>Online Chat</div>
-					<RippleBadge style={{ margin: '-18px 0 0 21px' }} badgeContent={onlineUsers} />
+					<RippleBadge style={{ margin: '-18px 0 0 21px ' }} badgeContent={onlineUsers} />
 				</Box>
 				<Box className={'chat-content'} id="chat-content" ref={chatContentRef} component={'div'}>
-					{/* <ScrollableFeed> */}
+					<ScrollableFeed>
 						<Stack className={'chat-main'}>
 							<Box flexDirection={'row'} style={{ display: 'flex' }} sx={{ m: '10px 0px' }} component={'div'}>
 								<div className={'welcome'}>Welcome to Live chat!</div>
@@ -148,6 +150,7 @@ const Chat = () => {
 								const memberImage = memberData?.memberImage
 									? `${REACT_APP_API_URL}/${memberData.memberImage}`
 									: '/img/profile/defaultUser.svg';
+
 								return memberData?._id === user?._id ? (
 									<Box
 										component={'div'}
@@ -166,9 +169,8 @@ const Chat = () => {
 									</Box>
 								);
 							})}
-							<></>
 						</Stack>
-					{/* </ScrollableFeed> */}
+					</ScrollableFeed>
 				</Box>
 				<Box className={'chat-bott'} component={'div'}>
 					<input
