@@ -76,10 +76,8 @@ const PropertyBigCard = (props: PropertyBigCardProps) => {
 							<Typography className="view-cnt">{property?.propertyViews}</Typography>
 							<IconButton
 								color={'default'}
-								onClick={(e) => {
-									e.stopPropagation();
-									likePropertyHandler(user, property?._id);
-								}}
+								// yarn run dev
+								
 							>
 								{property?.meLiked && property?.meLiked[0]?.myFavorite ? (
 									<FavoriteIcon style={{ color: 'red' }} />

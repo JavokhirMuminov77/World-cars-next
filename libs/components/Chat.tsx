@@ -138,7 +138,7 @@ const Chat = () => {
 					<RippleBadge style={{ margin: '-18px 0 0 21px' }} badgeContent={onlineUsers} />
 				</Box>
 				<Box className={'chat-content'} id="chat-content" ref={chatContentRef} component={'div'}>
-					<ScrollableFeed>
+					{/* <ScrollableFeed> */}
 						<Stack className={'chat-main'}>
 							<Box flexDirection={'row'} style={{ display: 'flex' }} sx={{ m: '10px 0px' }} component={'div'}>
 								<div className={'welcome'}>Welcome to Live chat!</div>
@@ -168,7 +168,7 @@ const Chat = () => {
 							})}
 							<></>
 						</Stack>
-					</ScrollableFeed>
+					{/* </ScrollableFeed> */}
 				</Box>
 				<Box className={'chat-bott'} component={'div'}>
 					<input
