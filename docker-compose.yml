@@ -1,11 +1,12 @@
-version: '3.8'
+version: '3'
+
 services:
   world-cars-next:
     container_name: world-cars-next
     restart: always
     image: node:20.10.0
     ports:
-      - 4000:3000
+      - "4000:3000"
     environment:
       - PORT=3000
     volumes:
